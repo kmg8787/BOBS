@@ -1,0 +1,15 @@
+<resources>
+	<string name="app_name">MEMOQUE</string>
+	<string name="title_touchthescreen">Touch the screen</string>
+	<string name="main_backpressed">Press the Back button again to exit</string>
+
+	<string-array name="tabnames">
+		<item name="main_tab">MEMO</item>
+		<item name="search_tab">SEARCH</item>
+		<item name="setting_tab">SETTING</item>
+	</string-array>
+
+	<string name="hello_memo_fragment">Hello memo fragment</string>
+	<string name="hello_search_fragment">Hello search fragment</string>
+	<string name="hello_setting_fragment">Hello setting fragment</string>
+</resources>

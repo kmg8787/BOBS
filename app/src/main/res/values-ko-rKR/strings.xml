@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">메모큐</string>
+	<string name="title_touchthescreen">화면을 터치해주세요</string>
+	<string name="main_backpressed">뒤로 버튼을 한번 더 누르시면 종료됩니다</string>
+
+	<string-array name="tabnames">
+		<item name="main_tab">메모</item>
+		<item name="search_tab">검색</item>
+		<item name="setting_tab">세팅</item>
+	</string-array>
+
+	<string name="hello_memo_fragment">Hello memo fragment</string>
+	<string name="hello_search_fragment">Hello search fragment</string>
+	<string name="hello_setting_fragment">Hello setting fragment</string>
+</resources>
