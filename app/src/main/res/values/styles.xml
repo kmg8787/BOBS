@@ -12,6 +12,16 @@
 		<!--<item name="android:windowBackground">@drawable/ic_launcher_background</item>-->
 	</style>
 
+	<style name="DetailMemoTheme" parent="@style/Theme.AppCompat.NoActionBar">
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:backgroundDimEnabled">false</item>
+	</style>
+
+	<style name="DetailMemoToolbar" parent="@style/Theme.AppCompat.NoActionBar">
+		<item name ="android:textColorPrimary">#000000</item>
+		<item name ="colorControlNormal">#000000</item>
+	</style>
+
 	<style name="TabTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<!-- 배경-->
 		<item name="colorPrimary">@android:color/white</item>

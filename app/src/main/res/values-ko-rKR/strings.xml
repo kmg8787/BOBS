@@ -10,7 +10,18 @@
 		<item name="setting_tab">세팅</item>
 	</string-array>
 
-	<string name="hello_memo_fragment">Hello memo fragment</string>
-	<string name="hello_search_fragment">Hello search fragment</string>
-	<string name="hello_setting_fragment">Hello setting fragment</string>
+	<string name="memo_add_button">메모 추가</string>
+	<string name="memo_add_button_warning">메모 추가는 메모탭에서만 가능합니다.</string>
+
+	<string name="search_button">검색</string>
+	<string name="search_calendar_button">캘린더</string>
+	<string name="detail_memo_title">메모</string>
+	<string name="detail_memo_menu_select_alarm_date">알람시간선택</string>
+	<string name="detail_memo_menu_save">저장</string>
+	<string name="detail_memo_menu_delete">삭제</string>
+	<string name="detail_memo_menu_reset">초기화</string>
+	<string name="detail_memo_content_title">제목</string>
+	<string name="detail_memo_content_alarmdate">알람시간</string>
+	<string name="detail_memo_content_alarmdate_desc">우측상단 캘린더 버튼 선택 후 시간을 선택해주세요. 선택하지 않을 경우 메모 저장 시간으로 저장됩니다.</string>
+	<string name="detail_memo_content_hint">내용</string>
 </resources>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".main.memo.DetailMemoActivity"
+	>
+
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/detail_memo_toolbar"
+		android:layout_width="0dp"
+		android:layout_height="?attr/actionBarSize"
+		android:layout_marginBottom="26dp"
+		android:background="#FFFFCC"
+		android:elevation="4dp"
+		android:theme="@style/DetailMemoToolbar"
+		app:layout_constraintBottom_toTopOf="@+id/text_title"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+		/>
+
+	<TextView
+		android:id="@+id/text_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="33dp"
+		android:layout_marginEnd="16dp"
+		android:layout_marginStart="24dp"
+		android:text="@string/detail_memo_content_title"
+		app:layout_constraintBottom_toTopOf="@+id/textView5"
+		app:layout_constraintEnd_toStartOf="@+id/edit_title"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/detail_memo_toolbar"
+		/>
+
+	<EditText
+		android:id="@+id/edit_title"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:layout_marginEnd="8dp"
+		android:ems="10"
+		android:hint="@string/detail_memo_content_title"
+		android:inputType="text"
+		app:layout_constraintBottom_toTopOf="@+id/text_alarm_date"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/text_title"/>
+
+	<TextView
+		android:id="@+id/text_alarm_date"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:text="2019/02/15"
+		app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/textView5"
+		/>
+
+	<TextView
+		android:id="@+id/textView5"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="25dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="4dp"
+		android:text="@string/detail_memo_content_alarmdate"
+		app:layout_constraintBottom_toTopOf="@+id/textView6"
+		app:layout_constraintEnd_toStartOf="@+id/text_alarm_date"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/text_title"
+		/>
+
+	<EditText
+		android:id="@+id/editText4"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="7dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:ems="10"
+		android:gravity="start|top"
+		android:hint="@string/detail_memo_content_hint"
+		android:inputType="text"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textView6"/>
+
+	<TextView
+		android:id="@+id/textView6"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:selectAllOnFocus="false"
+		android:text="@string/detail_memo_content_alarmdate_desc"
+		android:textColor="#FF0000"
+		app:layout_constraintBottom_toTopOf="@+id/editText4"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+
+</android.support.constraint.ConstraintLayout>

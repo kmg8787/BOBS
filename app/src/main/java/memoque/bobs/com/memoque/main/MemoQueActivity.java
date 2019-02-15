@@ -1,5 +1,6 @@
 package memoque.bobs.com.memoque.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -7,9 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import memoque.bobs.com.memoque.R;
+import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
 import memoque.bobs.com.memoque.main.memo.MemoFragment;
 import memoque.bobs.com.memoque.main.search.SearchFragment;
 import memoque.bobs.com.memoque.main.setting.SettingFragment;
@@ -24,6 +29,9 @@ public class MemoQueActivity extends AppCompatActivity
 	{
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main );
+
+		Toolbar toolbar = findViewById( R.id.toolbar_main );
+		setSupportActionBar( toolbar );
 
 		// 뷰 페이져 생성
 		ViewPager viewPager = findViewById( R.id.viewPager );
@@ -63,6 +71,31 @@ public class MemoQueActivity extends AppCompatActivity
 		// 탭에 뷰 페이져 연결
 		TabLayout tabLayout = findViewById( R.id.tabLayout );
 		tabLayout.setupWithViewPager( viewPager );
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu( Menu menu )
+	{
+		getMenuInflater().inflate( R.menu.main_menu, menu );
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item )
+	{
+		switch( item.getItemId() )
+		{
+			case R.id.memo_add:
+				TabLayout tabLayout = findViewById( R.id.tabLayout );
+				if(tabLayout.getSelectedTabPosition() == 0){
+					Intent intent = new Intent( this, DetailMemoActivity.class );
+					startActivity( intent );
+				} else
+					Toast.makeText( getApplicationContext(), getString( R.string.memo_add_button_warning ) , Toast.LENGTH_SHORT ).show();
+				break;
+		}
+
+		return super.onOptionsItemSelected( item );
 	}
 
 	@Override

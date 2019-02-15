@@ -9,7 +9,18 @@
 		<item name="setting_tab">SETTING</item>
 	</string-array>
 
-	<string name="hello_memo_fragment">Hello memo fragment</string>
-	<string name="hello_search_fragment">Hello search fragment</string>
-	<string name="hello_setting_fragment">Hello setting fragment</string>
+	<string name="memo_add_button">Memo Add</string>
+	<string name="memo_add_button_warning">Adding memo is only possible from the Memo tab.</string>
+
+	<string name="search_button">Search</string>
+	<string name="search_calendar_button">Calendar Button</string>
+	<string name="detail_memo_title">MEMO</string>
+	<string name="detail_memo_menu_select_alarm_date">SELECT ALARM DATE</string>
+	<string name="detail_memo_menu_save">SAVE</string>
+	<string name="detail_memo_menu_delete">DELETE</string>
+	<string name="detail_memo_menu_reset">RESET</string>
+	<string name="detail_memo_content_title">Title</string>
+	<string name="detail_memo_content_alarmdate">AlarmDate</string>
+	<string name="detail_memo_content_alarmdate_desc">Select the upper right calendar button and select a time. If not selected, it is saved as a memo save time.</string>
+	<string name="detail_memo_content_hint">Content</string>
 </resources>

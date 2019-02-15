@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/select_alarm_date"
+		android:title="@string/detail_memo_menu_select_alarm_date"
+		android:icon="@drawable/baseline_calendar_today_black_24"
+		app:showAsAction="ifRoom"
+		/>
+
+	<group>
+		<item
+			android:id="@+id/menu_save"
+			android:title="@string/detail_memo_menu_save"/>
+		<item
+			android:id="@+id/menu_delete"
+			android:title="@string/detail_memo_menu_delete"/>
+		<item
+			android:id="@+id/menu_reset"
+			android:title="@string/detail_memo_menu_reset"/>
+	</group>
+</menu>

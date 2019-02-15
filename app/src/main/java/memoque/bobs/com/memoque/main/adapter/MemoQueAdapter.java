@@ -16,11 +16,11 @@ import memoque.bobs.com.memoque.main.memo.MemoModel;
 
 public class MemoQueAdapter extends RecyclerView.Adapter<ViewHolder>
 {
-	private List<MemoModel> memoModelList = null;
+	private List<MemoModel> memoModelList;
 
 	public MemoQueAdapter()
 	{
-		memoModelList = MemoQueManager.getInstance().getMemoList();
+		memoModelList = MemoQueManager.Companion.getInstance().getMemoList();
 	}
 
 	@NonNull
@@ -56,11 +56,11 @@ public class MemoQueAdapter extends RecyclerView.Adapter<ViewHolder>
 		return memoModelList.size();
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder
+	static class ViewHolder extends RecyclerView.ViewHolder
 	{
 		private CardView cardView;
 
-		public ViewHolder( CardView v )
+		ViewHolder( CardView v )
 		{
 			super( v );
 			cardView = v;
