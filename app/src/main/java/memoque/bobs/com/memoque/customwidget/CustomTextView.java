@@ -1,4 +1,4 @@
-package memoque.bobs.com;
+package memoque.bobs.com.memoque.customwidget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,13 +10,13 @@ import android.util.AttributeSet;
 
 import memoque.bobs.com.memoque.R;
 
+// 외곽선 표시용 텍스트뷰
 public class CustomTextView extends android.support.v7.widget.AppCompatTextView
 {
 	private float      strokeWidth;
 	private Integer    strokeColor;
 	private Paint.Join strokeJoin;
 	private float      strokeMiter;
-
 
 	public CustomTextView( Context context )
 	{

@@ -17,17 +17,15 @@ import memoque.bobs.com.memoque.main.adapter.MemoQueAdapter;
  */
 public class MemoFragment extends Fragment
 {
-	public MemoFragment()
-	{
-		// Required empty public constructor
-	}
-
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		// Inflate the layout for this fragment
 		RecyclerView recyclerView = (RecyclerView)inflater.inflate( R.layout.fragment_memo, container, false );
-		recyclerView.setAdapter( new MemoQueAdapter() );
+
+		MemoQueAdapter memoQueAdapter = new MemoQueAdapter();
+		memoQueAdapter.initData();
+		recyclerView.setAdapter( memoQueAdapter );
 		recyclerView.setLayoutManager( new LinearLayoutManager( getActivity() ) );
 
 		return recyclerView;

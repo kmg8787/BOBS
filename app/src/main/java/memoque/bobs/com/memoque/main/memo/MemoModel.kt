@@ -24,4 +24,4 @@ package memoque.bobs.com.memoque.main.memo
 //    }
 //}
 
-data class MemoModel(var index: Int, var title: String, var content: String, var date: String)
+data class MemoModel(var index: Int = 0, var title: String = "", var content: String = "", var date: String = "")

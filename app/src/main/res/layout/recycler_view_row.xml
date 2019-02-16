@@ -22,7 +22,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="5dp"
 			android:layout_marginTop="5dp"
-			android:text="title"/>
+			android:textColor="#000000"/>
 
 		<TextView
 			android:id="@+id/memo_content"
@@ -31,7 +31,7 @@
 			android:layout_marginStart="10dp"
 			android:layout_marginTop="5dp"
 			android:singleLine="true"
-			android:text="content"/>
+			android:textColor="#000000"/>
 
 		<TextView
 			android:id="@+id/memo_date"
@@ -39,7 +39,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="5dp"
 			android:layout_marginTop="10dp"
-			android:text="date"/>
+			android:textColor="#000000"/>
 
 	</LinearLayout>
 

@@ -14,13 +14,22 @@
 
 	<string name="search_button">Search</string>
 	<string name="search_calendar_button">Calendar Button</string>
+	<string name="search_empty_text">Please enter the text you want to search for.</string>
+
 	<string name="detail_memo_title">ADD MEMO</string>
+
 	<string name="detail_memo_menu_select_alarm_date">SELECT ALARM DATE</string>
 	<string name="detail_memo_menu_save">SAVE</string>
 	<string name="detail_memo_menu_delete">DELETE</string>
 	<string name="detail_memo_menu_reset">RESET</string>
+
 	<string name="detail_memo_content_title">Title</string>
 	<string name="detail_memo_content_alarmdate">AlarmDate</string>
-	<string name="detail_memo_content_alarmdate_desc">Select the upper right calendar button and select a time. If not selected, it is saved as a memo save time.</string>
+	<string name="detail_memo_content_alarmdate_desc">Select the upper right calendar button and select a time. If not selected, it is saved with the above time.</string>
 	<string name="detail_memo_content_hint">Content</string>
+
+	<string name="select_alarmtime_positive">Decision</string>
+	<string name="select_alarmtime_negative">Cancel</string>
+	<string name="select_alarmtime_warning_not_select_date">Please select a date first.</string>
+	<string name="select_alarmtime_decision">Do you want to set the alarm to the above time?</string>
 </resources>

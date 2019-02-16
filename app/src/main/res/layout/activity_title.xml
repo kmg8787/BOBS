@@ -8,7 +8,7 @@
 	tools:context=".title.TitleActivity"
 	android:background="@drawable/title">
 
-	<memoque.bobs.com.CustomTextView
+	<memoque.bobs.com.memoque.customwidget.CustomTextView
 		android:id="@+id/textView3"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
 		app:layout_constraintTop_toTopOf="parent"
 		tools:ignore="MissingConstraints"/>
 
-	<memoque.bobs.com.CustomTextView
+	<TextView
 		android:id="@+id/titleblink"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -43,10 +43,6 @@
 		android:textColor="#000000"
 		android:textSize="20sp"
 		android:textStyle="bold"
-		app:outerShadowRadius="1dp"
-		app:strokeColor="#FFFFFF"
-		app:strokeJoinStyle="miter"
-		app:strokeWidth="0.5dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"

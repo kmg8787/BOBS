@@ -99,6 +99,12 @@ public class MemoQueActivity extends AppCompatActivity
 	}
 
 	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+	}
+
+	@Override
 	public void onBackPressed()
 	{
 		// 백키 두번 터치할경우 꺼지도록 한다

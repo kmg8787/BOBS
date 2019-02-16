@@ -54,7 +54,6 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginEnd="8dp"
-		android:text="2019/02/15"
 		app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -75,7 +74,7 @@
 		/>
 
 	<EditText
-		android:id="@+id/editText4"
+		android:id="@+id/edit_content"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="7dp"
@@ -100,7 +99,7 @@
 		android:selectAllOnFocus="false"
 		android:text="@string/detail_memo_content_alarmdate_desc"
 		android:textColor="#FF0000"
-		app:layout_constraintBottom_toTopOf="@+id/editText4"
+		app:layout_constraintBottom_toTopOf="@+id/edit_content"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/textView5"/>
