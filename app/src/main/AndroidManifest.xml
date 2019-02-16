@@ -20,7 +20,7 @@
 		<activity
 			android:name=".main.MemoQueActivity"
 			android:screenOrientation="portrait"
-			android:theme="@style/SplashTheme">
+			android:theme="@style/Theme.AppCompat.NoActionBar">
 		</activity>
 		<activity
 			android:name=".splash.SplashActivity"
@@ -35,7 +35,7 @@
 		<activity
 			android:name=".title.TitleActivity"
 			android:screenOrientation="portrait"
-			android:theme="@style/SplashTheme">
+			android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 		</activity>
 	</application>
 

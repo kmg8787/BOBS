@@ -14,7 +14,7 @@
 
 	<string name="search_button">Search</string>
 	<string name="search_calendar_button">Calendar Button</string>
-	<string name="detail_memo_title">MEMO</string>
+	<string name="detail_memo_title">ADD MEMO</string>
 	<string name="detail_memo_menu_select_alarm_date">SELECT ALARM DATE</string>
 	<string name="detail_memo_menu_save">SAVE</string>
 	<string name="detail_memo_menu_delete">DELETE</string>

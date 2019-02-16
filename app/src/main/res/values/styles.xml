@@ -12,9 +12,7 @@
 		<!--<item name="android:windowBackground">@drawable/ic_launcher_background</item>-->
 	</style>
 
-	<style name="DetailMemoTheme" parent="@style/Theme.AppCompat.NoActionBar">
-		<item name="android:windowBackground">@android:color/transparent</item>
-		<item name="android:backgroundDimEnabled">false</item>
+	<style name="DetailMemoTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
 	</style>
 
 	<style name="DetailMemoToolbar" parent="@style/Theme.AppCompat.NoActionBar">

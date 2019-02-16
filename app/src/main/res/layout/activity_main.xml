@@ -15,7 +15,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		>
-
 	</android.support.v7.widget.Toolbar>
 
 	<android.support.design.widget.AppBarLayout
