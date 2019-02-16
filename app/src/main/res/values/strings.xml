@@ -15,6 +15,7 @@
 	<string name="search_button">Search</string>
 	<string name="search_calendar_button">Calendar Button</string>
 	<string name="search_empty_text">Please enter the text you want to search for.</string>
+	<string name="search_empty_memo">There are no saved memos.</string>
 
 	<string name="detail_memo_title">ADD MEMO</string>
 

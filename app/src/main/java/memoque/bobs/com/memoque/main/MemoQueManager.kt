@@ -7,8 +7,8 @@ import java.util.*
 
 class MemoQueManager private constructor() {
 
-    enum class Adapterkey{
-        MEMO,SEARCH
+    enum class Adapterkey {
+        MEMO, SEARCH
     }
 
     private val mainDB: SQLiteDatabase? = null
@@ -26,8 +26,7 @@ class MemoQueManager private constructor() {
             return listSort(null)
         }
 
-    fun setAdapterListener(key: Adapterkey, listener:IAdapter)
-    {
+    fun setAdapterListener(key: Adapterkey, listener: IAdapter) {
         adapterListeners[key] = listener
     }
 
@@ -41,9 +40,15 @@ class MemoQueManager private constructor() {
         adapterListeners[key]?.removeToIndex(memo?.index)
     }
 
-    fun memosSearch(key: Adapterkey, filterText: String) {
-        val searchMemos = listSort(memos.filter { it.value.title.contains(filterText) || it.value.content.contains(filterText) || it.value.date.contains(filterText) })
-        adapterListeners[key]?.searchMemos(searchMemos)
+    fun memosSearch(key: Adapterkey, filterText: String): Boolean {
+        if (memos.size == 0)
+            return false
+        else {
+            val searchMemos = listSort(memos.filter { it.value.title.contains(filterText) || it.value.content.contains(filterText) || it.value.date.contains(filterText) })
+            adapterListeners[key]?.searchMemos(searchMemos)
+        }
+
+        return true
     }
 
     fun listSort(map: Map<Int, MemoModel>?): List<MemoModel> {

@@ -16,6 +16,7 @@
 	<string name="search_button">검색</string>
 	<string name="search_calendar_button">캘린더</string>
 	<string name="search_empty_text">검색할 텍스트를 입력해주세요.</string>
+	<string name="search_empty_memo">저장된 메모가 없어요.</string>
 
 	<string name="detail_memo_title">메모 추가</string>
 
