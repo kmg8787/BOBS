@@ -19,5 +19,9 @@
 		<item
 			android:id="@+id/menu_reset"
 			android:title="@string/detail_memo_menu_reset"/>
+
+		<item
+			android:id="@+id/menu_exit"
+			android:title="@string/detail_memo_menu_exit"/>
 	</group>
 </menu>

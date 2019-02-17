@@ -1,8 +1,10 @@
 package memoque.bobs.com.memoque.main
 
-import android.database.sqlite.SQLiteDatabase
+import android.annotation.SuppressLint
+import android.app.Activity
+import memoque.bobs.com.memoque.db.DBManager
 import memoque.bobs.com.memoque.main.adapter.IAdapter
-import memoque.bobs.com.memoque.main.memo.MemoModel
+import memoque.bobs.com.memoque.main.memo.BSMemo
 import java.util.*
 
 class MemoQueManager private constructor() {
@@ -11,60 +13,104 @@ class MemoQueManager private constructor() {
         MEMO, SEARCH
     }
 
-    private val mainDB: SQLiteDatabase? = null
-    private val dbHelper: MemoQueDatabaseHelper? = null
-
-    private val memos = hashMapOf<Int, MemoModel>()
+    var databaseManager: DBManager? = null
+    private var memos = mutableListOf<BSMemo>()
     private val adapterListeners = hashMapOf<Adapterkey, IAdapter>()
 
+    var memoQueActivity: Activity? = null
+
     companion object {
+        @SuppressLint("StaticFieldLeak")
         val instance = MemoQueManager()
     }
 
-    val memoList: List<MemoModel>
-        get() {
-            return listSort(null)
-        }
+    fun setDatabase(activity: Activity) {
+        memoQueActivity = activity
+        databaseManager = DBManager(activity)
+        memos = databaseManager!!.allMemos
+    }
 
     fun setAdapterListener(key: Adapterkey, listener: IAdapter) {
         adapterListeners[key] = listener
     }
 
-    fun add(key: Adapterkey, memo: MemoModel) {
-        memos[memo.index] = memo
-        adapterListeners[key]?.addToIndex(memo.index + 1)
+    fun add(key: Adapterkey, BSMemo: BSMemo, index: Int) {
+        memos.add(BSMemo)
+        adapterListeners[key]?.addToIndex(index)
+        databaseManager?.insert(BSMemo)
     }
 
-    fun remove(key: Adapterkey, index: Int) {
-        val memo = memos.remove(index)
-        adapterListeners[key]?.removeToIndex(memo?.index)
+    fun update(key: MemoQueManager.Adapterkey, index: Int) {
+        when (key) {
+            Adapterkey.MEMO -> adapterListeners[key]?.refreshToIndex(index)
+            Adapterkey.SEARCH -> {
+                adapterListeners[key]?.refreshToIndex(index)
+                adapterListeners[Adapterkey.MEMO]?.refreshAll()
+            }
+        }
+
+        databaseManager?.update(memos[index])
     }
 
-    fun memosSearch(key: Adapterkey, filterText: String): Boolean {
+    fun remove(key: MemoQueManager.Adapterkey, index: Int) {
+        databaseManager?.delete(memos.removeAt(index))
+
+        when (key) {
+            Adapterkey.MEMO ->
+                adapterListeners[key]?.removeToIndex(index)
+            Adapterkey.SEARCH -> {
+                adapterListeners[key]?.removeToIndex(index)
+                adapterListeners[Adapterkey.MEMO]?.refreshAll()
+            }
+        }
+    }
+
+    fun memosSearch(key: MemoQueManager.Adapterkey, filterText: String): Boolean {
         if (memos.size == 0)
             return false
         else {
-            val searchMemos = listSort(memos.filter { it.value.title.contains(filterText) || it.value.content.contains(filterText) || it.value.date.contains(filterText) })
-            adapterListeners[key]?.searchMemos(searchMemos)
+            listSort()
+            adapterListeners[key]?.searchMemos(memos.filter { it.title.contains(filterText) || it.content.contains(filterText) || it.date.contains(filterText) })
         }
 
         return true
     }
 
-    fun listSort(map: Map<Int, MemoModel>?): List<MemoModel> {
-        val list = ArrayList(map?.values ?: memos.values)
-        Collections.sort(list, Comparator { o1, o2 ->
+    fun listSort() {
+        if (memos.isEmpty())
+            return
+
+        Collections.sort(memos, Comparator { o1, o2 ->
             if (o1.index < o2.index)
                 return@Comparator -1
             else if (o1.index > o2.index)
                 return@Comparator 1
             0
         })
+    }
 
-        return list
+    fun getMemo(index: Int): BSMemo? {
+        listSort()
+        return memos[index]
     }
 
     fun getMemoIndex(): Int {
-        return if (memos.size == 0) 0 else memos.size
+        var index = 0
+
+        if (memos.size > 0) {
+            listSort()
+            index = (memos[memos.size - 1].index + 1)
+        }
+
+        return index
+    }
+
+    fun getMemos(): MutableList<BSMemo> {
+        listSort()
+        return memos
+    }
+
+    fun getMemosSize(): Int {
+        return memos.size
     }
 }

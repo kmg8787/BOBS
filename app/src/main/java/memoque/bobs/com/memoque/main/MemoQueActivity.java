@@ -17,7 +17,6 @@ import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
 import memoque.bobs.com.memoque.main.memo.MemoFragment;
 import memoque.bobs.com.memoque.main.search.SearchFragment;
-import memoque.bobs.com.memoque.main.setting.SettingFragment;
 
 public class MemoQueActivity extends AppCompatActivity
 {
@@ -29,6 +28,8 @@ public class MemoQueActivity extends AppCompatActivity
 	{
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main );
+
+		MemoQueManager.Companion.getInstance().setDatabase( this );
 
 		Toolbar toolbar = findViewById( R.id.toolbar_main );
 		setSupportActionBar( toolbar );
@@ -50,12 +51,8 @@ public class MemoQueActivity extends AppCompatActivity
 				switch( i ) {
 					case 0:
 						return new MemoFragment();
-
 					case 1:
 						return new SearchFragment();
-
-					case 2:
-						return new SettingFragment();
 				}
 				return null;
 			}
@@ -83,15 +80,14 @@ public class MemoQueActivity extends AppCompatActivity
 	@Override
 	public boolean onOptionsItemSelected( MenuItem item )
 	{
-		switch( item.getItemId() )
-		{
+		switch( item.getItemId() ) {
 			case R.id.memo_add:
 				TabLayout tabLayout = findViewById( R.id.tabLayout );
-				if(tabLayout.getSelectedTabPosition() == 0){
+				if( tabLayout.getSelectedTabPosition() == 0 ) {
 					Intent intent = new Intent( this, DetailMemoActivity.class );
 					startActivity( intent );
 				} else
-					Toast.makeText( getApplicationContext(), getString( R.string.memo_add_button_warning ) , Toast.LENGTH_SHORT ).show();
+					Toast.makeText( getApplicationContext(), getString( R.string.memo_add_button_warning ), Toast.LENGTH_SHORT ).show();
 				break;
 		}
 

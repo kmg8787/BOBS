@@ -1,6 +1,6 @@
 package memoque.bobs.com.memoque.main.memo
 
-//class MemoModel {
+//class BSMemo {
 //    var index: Int = 0
 //    var title: String? = null
 //    var content: String? = null
@@ -24,4 +24,4 @@ package memoque.bobs.com.memoque.main.memo
 //    }
 //}
 
-data class MemoModel(var index: Int = 0, var title: String = "", var content: String = "", var date: String = "")
+data class BSMemo(var id: Int = 0, var index: Int = 0, var title: String = "", var content: String = "", var date: String = "")
