@@ -9,7 +9,11 @@
 	</string-array>
 
 	<string name="memo_add_button">Memo Add</string>
+	<string name="memo_alram_on_button">Alram ON</string>
+	<string name="memo_alram_off_button">Alram OFF</string>
 	<string name="memo_add_button_warning">Adding memo is only possible from the Memo tab.</string>
+	<string name="memo_alram_on_message">The alarm is on.</string>
+	<string name="memo_alram_off_message">The alarm is off.</string>
 
 	<string name="search_button">Search</string>
 	<string name="search_calendar_button">Calendar Button</string>
@@ -24,6 +28,8 @@
 	<string name="detail_memo_menu_delete">DELETE</string>
 	<string name="detail_memo_menu_reset">RESET</string>
 	<string name="detail_memo_menu_exit">EXIT</string>
+	<string name="detail_memo_menu_save_empty_title">Please enter a title.</string>
+	<string name="detail_memo_menu_save_empty_content">Please enter a contents.</string>
 
 	<string name="detail_memo_content_title">Title</string>
 	<string name="detail_memo_content_alarmdate">AlarmDate</string>
@@ -34,4 +40,6 @@
 	<string name="select_alarmtime_negative">Cancel</string>
 	<string name="select_alarmtime_warning_not_select_date">Please select a date first.</string>
 	<string name="select_alarmtime_decision">Do you want to set the alarm to the above time?</string>
+
+	<string name="notification_title">alarm arrival</string>
 </resources>

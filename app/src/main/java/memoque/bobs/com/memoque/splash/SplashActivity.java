@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.view.Window;
 
 import memoque.bobs.com.memoque.R;
+import memoque.bobs.com.memoque.appdata.AppData;
+import memoque.bobs.com.memoque.appdata.NotiService;
 import memoque.bobs.com.memoque.title.TitleActivity;
 
 public class SplashActivity extends Activity
@@ -17,6 +19,9 @@ public class SplashActivity extends Activity
 		super.onCreate( savedInstanceState );
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
 		setContentView( R.layout.activity_splash );
+
+		NotiService.serviceIntent = null;
+		AppData.splashActivity = this;
 
 		Handler handler = new Handler(  );
 		handler.postDelayed( new Runnable()

@@ -9,11 +9,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import memoque.bobs.com.memoque.R;
+import memoque.bobs.com.memoque.appdata.AppData;
+import memoque.bobs.com.memoque.appdata.NotiService;
 import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
 import memoque.bobs.com.memoque.main.memo.MemoFragment;
 import memoque.bobs.com.memoque.main.search.SearchFragment;
@@ -29,6 +32,7 @@ public class MemoQueActivity extends AppCompatActivity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main );
 
+		AppData.mainActivity = this;
 		MemoQueManager.Companion.getInstance().setDatabase( this );
 
 		Toolbar toolbar = findViewById( R.id.toolbar_main );
@@ -71,6 +75,13 @@ public class MemoQueActivity extends AppCompatActivity
 	}
 
 	@Override
+	protected void onStart()
+	{
+		super.onStart();
+		stopService( new Intent( this, NotiService.class ) );
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
 		getMenuInflater().inflate( R.menu.main_menu, menu );
@@ -89,6 +100,16 @@ public class MemoQueActivity extends AppCompatActivity
 				} else
 					Toast.makeText( getApplicationContext(), getString( R.string.memo_add_button_warning ), Toast.LENGTH_SHORT ).show();
 				break;
+
+			case R.id.alram_on:
+				AppData.setEnableNotification( true );
+				Toast.makeText( getApplicationContext(), R.string.memo_alram_on_message, Toast.LENGTH_SHORT ).show();
+				break;
+
+			case R.id.alram_off:
+				AppData.setEnableNotification( false );
+				Toast.makeText( getApplicationContext(), R.string.memo_alram_off_message, Toast.LENGTH_SHORT ).show();
+				break;
 		}
 
 		return super.onOptionsItemSelected( item );
@@ -98,6 +119,12 @@ public class MemoQueActivity extends AppCompatActivity
 	protected void onDestroy()
 	{
 		super.onDestroy();
+
+		if( AppData.isEnableNotification() ) {
+			NotiService.serviceIntent = new Intent( this, NotiService.class );
+			startService( NotiService.serviceIntent );
+		} else
+			Log.e( "BOBS", "알람 꺼져있음." );
 	}
 
 	@Override

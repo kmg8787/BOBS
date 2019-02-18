@@ -1,5 +1,9 @@
 package memoque.bobs.com.memoque.main.memo
 
+import android.text.TextUtils
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+
 //class BSMemo {
 //    var index: Int = 0
 //    var title: String? = null
@@ -24,4 +28,11 @@ package memoque.bobs.com.memoque.main.memo
 //    }
 //}
 
-data class BSMemo(var id: Int = 0, var index: Int = 0, var title: String = "", var content: String = "", var date: String = "")
+data class BSMemo(var id: Int = 0, var index: Int = 0, var title: String = "", var content: String = "", var date: String = "", var dateTime : DateTime? = null, var isCompleteNoti : Boolean = false){
+    fun convertDateTime()
+    {
+        if(!TextUtils.isEmpty(date)) {
+            dateTime = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm").parseDateTime(date)
+        }
+    }
+}

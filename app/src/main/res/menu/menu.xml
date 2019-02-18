@@ -9,19 +9,21 @@
 		app:showAsAction="ifRoom"
 		/>
 
-	<group>
 		<item
 			android:id="@+id/menu_save"
-			android:title="@string/detail_memo_menu_save"/>
+			android:title="@string/detail_memo_menu_save"
+			app:showAsAction="never"/>
 		<item
 			android:id="@+id/menu_delete"
-			android:title="@string/detail_memo_menu_delete"/>
+			android:title="@string/detail_memo_menu_delete"
+			app:showAsAction="never"/>
 		<item
 			android:id="@+id/menu_reset"
-			android:title="@string/detail_memo_menu_reset"/>
+			android:title="@string/detail_memo_menu_reset"
+			app:showAsAction="never"/>
 
 		<item
 			android:id="@+id/menu_exit"
-			android:title="@string/detail_memo_menu_exit"/>
-	</group>
+			android:title="@string/detail_memo_menu_exit"
+			app:showAsAction="never"/>
 </menu>

@@ -4,7 +4,16 @@
 	<item
 		android:id="@+id/memo_add"
 		android:title="@string/memo_add_button"
-		android:icon="@drawable/ic_add_white_24dp"
-		app:showAsAction="ifRoom"
+		app:showAsAction="never"
+		/>
+	<item
+		android:id="@+id/alram_on"
+		android:title="@string/memo_alram_on_button"
+		app:showAsAction="never"
+		/>
+	<item
+		android:id="@+id/alram_off"
+		android:title="@string/memo_alram_off_button"
+		app:showAsAction="never"
 		/>
 </menu>

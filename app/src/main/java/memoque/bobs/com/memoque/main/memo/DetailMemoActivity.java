@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -96,9 +97,23 @@ public class DetailMemoActivity extends AppCompatActivity
 				createPickersDialog();
 				break;
 			case R.id.menu_save:
-				BSMemo.setTitle( titleEdit.getText().toString() );
+				String title = titleEdit.getText().toString();
+				if( TextUtils.isEmpty( title ) ) {
+					Toast.makeText( this, R.string.detail_memo_menu_save_empty_title, Toast.LENGTH_SHORT ).show();
+					break;
+				}
+
+				String content = contentEdit.getText().toString();
+				if( TextUtils.isEmpty( content ) ) {
+					Toast.makeText( this, R.string.detail_memo_menu_save_empty_content, Toast.LENGTH_SHORT ).show();
+					break;
+				}
+
+				BSMemo.setTitle( title );
 				BSMemo.setDate( alarmDateTv.getText().toString() );
-				BSMemo.setContent( contentEdit.getText().toString() );
+				BSMemo.setContent( content );
+				BSMemo.convertDateTime();
+				BSMemo.setCompleteNoti( false );
 
 				switch( detailMemoStatus ) {
 					case ADD_MEMO:

@@ -17,15 +17,12 @@ class MemoQueManager private constructor() {
     private var memos = mutableListOf<BSMemo>()
     private val adapterListeners = hashMapOf<Adapterkey, IAdapter>()
 
-    var memoQueActivity: Activity? = null
-
     companion object {
         @SuppressLint("StaticFieldLeak")
         val instance = MemoQueManager()
     }
 
     fun setDatabase(activity: Activity) {
-        memoQueActivity = activity
         databaseManager = DBManager(activity)
         memos = databaseManager!!.allMemos
     }
