@@ -4,34 +4,23 @@ import android.text.TextUtils
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
-//class BSMemo {
-//    var index: Int = 0
-//    var title: String? = null
-//    var content: String? = null
-//    var date: String? = null
-//    var isPush: Boolean = false
-//    var memoBgColor: Int = 0
-//
-//    constructor()
-//
-//    constructor(index: Int, title: String, content: String, date: String, push: Boolean, bgcolor: Int) {
-//        setAllData(index, title, content, date, push, bgcolor)
-//    }
-//
-//    fun setAllData(index: Int, title: String, content: String, date: String, push: Boolean, bgcolor: Int) {
-//        this.index = index
-//        this.title = title
-//        this.content = content
-//        this.date = date
-//        isPush = push
-//        memoBgColor = bgcolor
-//    }
-//}
+// 메모 데이터 클래스
+data class BSMemo(var id: Int = 0, var index: Int = 0, var title: String = "", var content: String = "", var date: String = "", var dateTime: DateTime? = null, var isCompleteNoti: Boolean = false) {
+    fun checkAndSetDate(newdate: String) {
+        if (!TextUtils.isEmpty(date)) {
+            val curdateTime = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm").parseDateTime(date)
+            val newdateTime = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm").parseDateTime(newdate)
 
-data class BSMemo(var id: Int = 0, var index: Int = 0, var title: String = "", var content: String = "", var date: String = "", var dateTime : DateTime? = null, var isCompleteNoti : Boolean = false){
-    fun convertDateTime()
-    {
-        if(!TextUtils.isEmpty(date)) {
+            if (!curdateTime.isEqual(newdateTime))
+                isCompleteNoti = false
+        }
+
+        date = newdate
+    }
+
+    fun convertDateTime() {
+        // 조다타임 클래스를 생성한다
+        if (!TextUtils.isEmpty(date)) {
             dateTime = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm").parseDateTime(date)
         }
     }

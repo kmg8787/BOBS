@@ -1,5 +1,6 @@
 package memoque.bobs.com.memoque.main.memo;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -35,14 +36,17 @@ public class DetailMemoActivity extends AppCompatActivity
 		ADD_MEMO, EDIT_MEMO
 	}
 
-	DateTime         resultDate       = DateTime.now();
+
 	EditText         titleEdit;
 	EditText         contentEdit;
 	TextView         alarmDateTv;
+
 	BSMemo           BSMemo;
-	int              currentPosition  = 0;
+	DateTime         resultDate       = DateTime.now();
 	DetailMemoStatus detailMemoStatus = DetailMemoStatus.ADD_MEMO;
 	Adapterkey       currentTabkey    = Adapterkey.MEMO;
+
+	int              currentPosition  = 0;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
@@ -50,6 +54,7 @@ public class DetailMemoActivity extends AppCompatActivity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_detail_memo );
 
+		// 툴바 세팅
 		Toolbar toolbar = findViewById( R.id.detail_memo_toolbar );
 		setSupportActionBar( toolbar );
 
@@ -60,16 +65,21 @@ public class DetailMemoActivity extends AppCompatActivity
 
 		Bundle extras = getIntent().getExtras();
 		if( null == extras ) {
+			// 값이 없으면 메모 추가 상태이다
 			setTitle( R.string.detail_memo_title_add );
 
+			// 메모 데이터 기본 세팅
 			BSMemo = new BSMemo();
 			BSMemo.setIndex( MemoQueManager.Companion.getInstance().getMemoIndex() );
+			// 추가할 리사이클러뷰 인덱스를 세팅
 			currentPosition = MemoQueManager.Companion.getInstance().getMemosSize();
 		} else {
+			// 값이 있으므로 메모 수정 상태이다
 			detailMemoStatus = DetailMemoStatus.EDIT_MEMO;
 			setTitle( R.string.detail_memo_title_edit );
 
 			currentPosition = extras.getInt( MEMO_INDEX );
+			// 추가 되어있는 메모 데이터를 가져온다
 			BSMemo = MemoQueManager.Companion.getInstance().getMemo( currentPosition );
 
 			if( BSMemo != null ) {
@@ -78,6 +88,7 @@ public class DetailMemoActivity extends AppCompatActivity
 				alarmDateTv.setText( BSMemo.getDate() );
 			}
 
+			// 현재 탭을 세팅한다
 			currentTabkey = (Adapterkey)extras.getSerializable( TAB_KEY );
 		}
 	}
@@ -85,6 +96,7 @@ public class DetailMemoActivity extends AppCompatActivity
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
+		// 툴바 메뉴 세팅
 		getMenuInflater().inflate( R.menu.menu, menu );
 		return true;
 	}
@@ -94,49 +106,71 @@ public class DetailMemoActivity extends AppCompatActivity
 	{
 		switch( item.getItemId() ) {
 			case R.id.select_alarm_date:
+				// 캘린더버튼 터치하면 날짜 선택 다이얼로그를 띄운다
 				createPickersDialog();
 				break;
+
 			case R.id.menu_save:
+				// 메모를 저장한다
 				String title = titleEdit.getText().toString();
 				if( TextUtils.isEmpty( title ) ) {
+					// 제목이 없으면 경고 토스트를 띄운다
 					Toast.makeText( this, R.string.detail_memo_menu_save_empty_title, Toast.LENGTH_SHORT ).show();
 					break;
 				}
 
 				String content = contentEdit.getText().toString();
 				if( TextUtils.isEmpty( content ) ) {
+					// 내용이 없으면 경고 토스트를 띄운다
 					Toast.makeText( this, R.string.detail_memo_menu_save_empty_content, Toast.LENGTH_SHORT ).show();
 					break;
 				}
 
+				// 메모 데이터에 작성한 내용을 세팅
 				BSMemo.setTitle( title );
-				BSMemo.setDate( alarmDateTv.getText().toString() );
+				BSMemo.checkAndSetDate( alarmDateTv.getText().toString() );
 				BSMemo.setContent( content );
 				BSMemo.convertDateTime();
 				BSMemo.setCompleteNoti( false );
 
 				switch( detailMemoStatus ) {
 					case ADD_MEMO:
+						// 메모 추가 상태면 디비에 추가한다
 						MemoQueManager.Companion.getInstance().add( Adapterkey.MEMO, BSMemo, currentPosition );
 						break;
 
 					case EDIT_MEMO:
+						// 메모 수정 상태면 디비를 업데이트한다
 						MemoQueManager.Companion.getInstance().update( currentTabkey, currentPosition );
 						break;
 				}
 
+				// 액티비티를 종료한다
 				finish();
 				break;
+
 			case R.id.menu_delete:
+				if( detailMemoStatus == DetailMemoStatus.EDIT_MEMO ) {
+					// 메모 추가 상태면 삭제하지 못한다
+					Toast.makeText( this, R.string.detail_memo_menu_remove_warning, Toast.LENGTH_SHORT ).show();
+					break;
+				}
+
+				// 디비에서 메모를 삭제한다
 				MemoQueManager.Companion.getInstance().remove( currentTabkey, currentPosition );
 
+				// 액티비티를 종료한다
 				finish();
 				break;
+
 			case R.id.menu_reset:
+				// 제목,내용 에디트 텍스트를 초기화한다
 				titleEdit.setText( "" );
 				contentEdit.setText( "" );
 				break;
+
 			case R.id.menu_exit:
+				// 액티비티를 종료한다
 				finish();
 				break;
 		}
@@ -146,10 +180,11 @@ public class DetailMemoActivity extends AppCompatActivity
 
 	private void createPickersDialog()
 	{
+		// 다이얼로그 생성 및 날짜,시간 피커를 세팅한다
 		final Builder builder = new Builder( this );
 		LayoutInflater inflater = this.getLayoutInflater();
 
-		View view = inflater.inflate( R.layout.dialog_time_picker, null );
+		@SuppressLint("InflateParams") View view = inflater.inflate( R.layout.dialog_time_picker, null );
 		final TextView resultTv = view.findViewById( R.id.result_date );
 		resultTv.setText( resultDate.toString( "yyyy/MM/dd HH:mm" ) );
 

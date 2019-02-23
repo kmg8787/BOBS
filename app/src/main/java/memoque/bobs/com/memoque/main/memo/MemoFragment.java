@@ -23,7 +23,7 @@ import memoque.bobs.com.memoque.main.adapter.MemoQueAdapter;
 public class MemoFragment extends Fragment
 {
 	@Override
-	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+	public View onCreateView( @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		// Inflate the layout for this fragment
 		RecyclerView recyclerView = (RecyclerView)inflater.inflate( R.layout.fragment_memo, container, false );
@@ -32,13 +32,13 @@ public class MemoFragment extends Fragment
 		memoQueAdapter.initData();
 		recyclerView.setAdapter( memoQueAdapter );
 		recyclerView.setLayoutManager( new LinearLayoutManager( getActivity() ) );
-
 		recyclerView.addOnItemTouchListener( new OnItemTouchListener()
 		{
 			@Override
 			public boolean onInterceptTouchEvent( @NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent )
 			{
 				if( motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
+					// 터치한 메모 수정 액티비티를 띄운다
 					View childview = recyclerView.findChildViewUnder( motionEvent.getX(), motionEvent.getY() );
 					if( childview != null ) {
 						int currentPosition = recyclerView.getChildAdapterPosition( childview );

@@ -14,17 +14,18 @@ public class DBManager
 {
 	public static final String DB_PATH = "memoque.db";
 
-	public static final String TABLE_NAME     = "memos";
-	public static final String COLUMN_ID      = "_id";
-	public static final String COLUMN_TITLE   = "title";
-	public static final String COLUMN_DATE    = "date";
-	public static final String COLUMN_CONTENT = "content";
-	public static final String COLUMN_INDEX   = "idx";
+	public static final String TABLE_NAME          = "memos";
+	public static final String COLUMN_ID           = "_id";
+	public static final String COLUMN_TITLE        = "title";
+	public static final String COLUMN_DATE         = "date";
+	public static final String COLUMN_CONTENT      = "content";
+	public static final String COLUMN_INDEX        = "idx";
+	public static final String COLUMN_COMPLETENOTI = "completenoti";
 
-	public static final String DB_CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_CONTENT + " TEXT, " + COLUMN_INDEX + " INTEGER)";
+	public static final String DB_CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_CONTENT + " TEXT, " + COLUMN_INDEX + " INTEGER, " + COLUMN_COMPLETENOTI + " TEXT)";
 
 	private SQLiteDatabase        database = null;
-	private MemoQueDatabaseHelper helper   = null;
+	private MemoQueDatabaseHelper helper;
 	private Cursor                cursor   = null;
 
 	public DBManager( Context context )
@@ -34,6 +35,7 @@ public class DBManager
 
 	public List<BSMemo> getAllMemos()
 	{
+		// 디비에 저장되어있는 메모 리스트 전체를 가져온다
 		List<BSMemo> list = new ArrayList<>();
 
 		database = helper.getReadableDatabase();
@@ -45,6 +47,7 @@ public class DBManager
 			memo.setDate( cursor.getString( cursor.getColumnIndex( COLUMN_DATE ) ) );
 			memo.setContent( cursor.getString( cursor.getColumnIndex( COLUMN_CONTENT ) ) );
 			memo.setIndex( cursor.getInt( cursor.getColumnIndex( COLUMN_INDEX ) ) );
+			memo.setCompleteNoti( cursor.getString( cursor.getColumnIndex( COLUMN_COMPLETENOTI ) ).equals( "Y" ) );
 			memo.convertDateTime();
 
 			list.add( memo );
@@ -55,6 +58,7 @@ public class DBManager
 
 	public void insert( BSMemo insertmemo )
 	{
+		// 디비에 해당 메모를 저장한다
 		database = helper.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -62,12 +66,14 @@ public class DBManager
 		values.put( COLUMN_DATE, insertmemo.getDate() );
 		values.put( COLUMN_CONTENT, insertmemo.getContent() );
 		values.put( COLUMN_INDEX, insertmemo.getIndex() );
+		values.put( COLUMN_COMPLETENOTI, insertmemo.isCompleteNoti() ? "Y" : "N" );
 
 		database.insert( TABLE_NAME, null, values );
 	}
 
 	public void update( BSMemo updatememo )
 	{
+		// 디비에 해당 메모내용을 갱신한다
 		database = helper.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -75,12 +81,14 @@ public class DBManager
 		values.put( COLUMN_DATE, updatememo.getDate() );
 		values.put( COLUMN_CONTENT, updatememo.getContent() );
 		values.put( COLUMN_INDEX, updatememo.getIndex() );
+		values.put( COLUMN_COMPLETENOTI, updatememo.isCompleteNoti() ? "Y" : "N" );
 
 		database.update( TABLE_NAME, values, COLUMN_ID + "=" + updatememo.getId(), null );
 	}
 
 	public void delete( BSMemo deletememo )
 	{
+		// 디비에서 해당 메모를 삭제한다
 		database = helper.getWritableDatabase();
 		database.delete( TABLE_NAME, COLUMN_ID + "=" + deletememo.getId(), null );
 	}

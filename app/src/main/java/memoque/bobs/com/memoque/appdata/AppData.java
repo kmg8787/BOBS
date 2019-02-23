@@ -10,9 +10,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import memoque.bobs.com.memoque.R;
+import memoque.bobs.com.memoque.main.MemoQueManager;
 import memoque.bobs.com.memoque.main.memo.BSMemo;
 
 public class AppData
@@ -20,19 +20,19 @@ public class AppData
 	public static final String PREFERENCE           = "com.bobs.memoque";
 	public static final String NOTIFICATION_ENABLED = "notification_enabled";
 
-	public static Context mainActivity = null;
+	public static Context mainActivity   = null;
 	public static Context splashActivity = null;
 
 	public static void sendNotification( BSMemo memo )
 	{
+		// 액티비티가 널이거나 알림이 꺼져있으면 보내지 않는다
 		if( mainActivity == null || !isEnableNotification() )
 			return;
-
-		Log.e( "BOBS", "푸시 시작" );
 
 		NotificationCompat.Builder builder = null;
 		NotificationManager manager = (NotificationManager)mainActivity.getSystemService( Context.NOTIFICATION_SERVICE );
 		if( null != manager ) {
+			// 채널ID 값이 필수로 들어가야한다
 			if( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O ) {
 				NotificationChannel notificationChannel = new NotificationChannel( "memoque", "memoque notification", NotificationManager.IMPORTANCE_DEFAULT );
 				manager.createNotificationChannel( notificationChannel );
@@ -42,9 +42,15 @@ public class AppData
 			}
 		}
 
-		PendingIntent pendingIntent = PendingIntent.getActivity( splashActivity, 0, new Intent( splashActivity, splashActivity.getClass() ), PendingIntent.FLAG_UPDATE_CURRENT );
+		// 알람을 터치했을때 앱이 실행되도록 스플래쉬 액티비티를 펜딩인텐트에 세팅한다
+		Intent intent = new Intent( splashActivity, splashActivity.getClass() );
+		intent.setAction( Intent.ACTION_MAIN );
+		intent.addCategory( Intent.CATEGORY_LAUNCHER );
+		intent.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP  );
+		PendingIntent pendingIntent = PendingIntent.getActivity( splashActivity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
 		if( null != builder ) {
+			// 알람에 대한 데이터들을 세팅한다
 			builder.setSmallIcon( R.drawable.baseline_note_24 );
 			builder.setContentTitle( mainActivity.getString( R.string.notification_title ) );
 			builder.setContentText( memo.getTitle() );
@@ -58,9 +64,9 @@ public class AppData
 			manager.notify( 0, builder.build() );
 		}
 
+		// 해당 메모는 알람을 보낸것으로 처리한다
 		memo.setCompleteNoti( true );
-
-		Log.e( "BOBS", "푸시 성공" );
+		MemoQueManager.Companion.getInstance().update( memo );
 	}
 
 	public static boolean isEnableNotification()
@@ -72,6 +78,7 @@ public class AppData
 		if( preferences == null )
 			return true;
 
+		// 알람 여부를 가져온다
 		return preferences.getBoolean( NOTIFICATION_ENABLED, true );
 	}
 
@@ -84,6 +91,7 @@ public class AppData
 		if( preferences == null )
 			return;
 
+		// 알람 여부를 세팅한다
 		Editor editor = preferences.edit();
 		if( editor != null ) {
 			editor.putBoolean( NOTIFICATION_ENABLED, value );

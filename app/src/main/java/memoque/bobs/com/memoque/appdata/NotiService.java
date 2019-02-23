@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 public class NotiService extends Service
 {
@@ -23,25 +22,10 @@ public class NotiService extends Service
 	@Override
 	public int onStartCommand( final Intent intent, int flags, int startId )
 	{
-		Log.e( "BOBS", "서비스 시작" );
-
-		new Thread( new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				startNotification( NotiService.this, new Intent( NotiService.this, NotiReceiver.class ) );
-			}
-		}, "Noti Thread" ).start();
+		// 노티리시버를 실행한다
+		startNotification( NotiService.this, new Intent( NotiService.this, NotiReceiver.class ) );
 
 		return super.onStartCommand( intent, flags, startId );
-	}
-
-	@Override
-	public void onDestroy()
-	{
-		super.onDestroy();
-		Log.e( "BOBS", "서비스 종료" );
 	}
 
 	public static void startNotification( Context context, Intent intent )
@@ -53,7 +37,7 @@ public class NotiService extends Service
 
 		PendingIntent pendingIntent = PendingIntent.getBroadcast( context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
-		// Receiver 호출 한다.
+		// Receiver를 호출 한다.
 		manager.set( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent );
 	}
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.appdata.AppData;
 import memoque.bobs.com.memoque.appdata.NotiService;
@@ -20,6 +22,9 @@ public class SplashActivity extends Activity
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
 		setContentView( R.layout.activity_splash );
 
+		// fabric 초기화
+		Fabric.with(this, new Crashlytics());
+
 		NotiService.serviceIntent = null;
 		AppData.splashActivity = this;
 
@@ -29,6 +34,7 @@ public class SplashActivity extends Activity
 			@Override
 			public void run()
 			{
+				// 1초 뒤 타이틀 액티비티 슬라이드 애니메이션 효과를 준다
 				startActivity( new Intent( SplashActivity.this, TitleActivity.class ) );
 				overridePendingTransition( R.anim.slide_in, R.anim.slide_out );
 

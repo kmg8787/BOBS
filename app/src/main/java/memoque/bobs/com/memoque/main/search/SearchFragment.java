@@ -37,10 +37,8 @@ import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
  */
 public class SearchFragment extends Fragment
 {
-	private String searchText = "";
-
 	@Override
-	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+	public View onCreateView( @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		// Inflate the layout for this fragment
 		View view = inflater.inflate( R.layout.fragment_search, container, false );
@@ -74,7 +72,7 @@ public class SearchFragment extends Fragment
 			{
 				DateTime now = new DateTime();
 
-				DatePickerDialog datePickerDialog = new DatePickerDialog( getContext(), new OnDateSetListener()
+				DatePickerDialog datePickerDialog = new DatePickerDialog( Objects.requireNonNull( getContext() ), new OnDateSetListener()
 				{
 					@Override
 					public void onDateSet( DatePicker view, int year, int month, int dayOfMonth )
@@ -106,9 +104,6 @@ public class SearchFragment extends Fragment
 				if( motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
 					View childview = recyclerView.findChildViewUnder( motionEvent.getX(), motionEvent.getY() );
 					if( childview != null ) {
-						EditText searchEdit = Objects.requireNonNull( getView() ).findViewById( R.id.search_editText );
-						searchText = searchEdit.getText().toString();
-
 						int currentPosition = recyclerView.getChildAdapterPosition( childview );
 
 						Intent intent = new Intent( getContext(), DetailMemoActivity.class );
