@@ -5,7 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".main.BSMemo.DetailMemoActivity">
+	tools:context=".main.memo.DetailMemoActivity">
 
 	<android.support.v7.widget.Toolbar
 		android:id="@+id/detail_memo_toolbar"
@@ -30,7 +30,7 @@
 		android:layout_marginEnd="16dp"
 		android:layout_marginStart="24dp"
 		android:text="@string/detail_memo_content_title"
-		app:layout_constraintBottom_toTopOf="@+id/textView5"
+		app:layout_constraintBottom_toTopOf="@+id/text_alram_title"
 		app:layout_constraintEnd_toStartOf="@+id/edit_title"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/detail_memo_toolbar"
@@ -54,20 +54,20 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginEnd="8dp"
-		app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
+		app:layout_constraintBaseline_toBaselineOf="@+id/text_alram_title"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/textView5"
+		app:layout_constraintStart_toEndOf="@+id/text_alram_title"
 		/>
 
 	<TextView
-		android:id="@+id/textView5"
+		android:id="@+id/text_alram_title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="25dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginStart="4dp"
 		android:text="@string/detail_memo_content_alarmdate"
-		app:layout_constraintBottom_toTopOf="@+id/textView6"
+		app:layout_constraintBottom_toTopOf="@+id/text_alram_info"
 		app:layout_constraintEnd_toStartOf="@+id/text_alarm_date"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/text_title"
@@ -87,21 +87,22 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView6"/>
+		app:layout_constraintTop_toBottomOf="@+id/text_alram_info"/>
 
 	<TextView
-		android:id="@+id/textView6"
+		android:id="@+id/text_alram_info"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="16dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginStart="8dp"
+		android:gravity="center"
 		android:selectAllOnFocus="false"
 		android:text="@string/detail_memo_content_alarmdate_desc"
 		android:textColor="#FF0000"
 		app:layout_constraintBottom_toTopOf="@+id/edit_content"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+		app:layout_constraintTop_toBottomOf="@+id/text_alram_title"/>
 
 </android.support.constraint.ConstraintLayout>

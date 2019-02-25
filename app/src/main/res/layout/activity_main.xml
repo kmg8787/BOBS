@@ -32,7 +32,9 @@
 			android:id="@+id/tabLayout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			app:tabGravity="fill"/>
+			app:tabMaxWidth="0dp"
+			app:tabGravity="fill"
+			app:tabMode="fixed"/>
 
 		<android.support.v4.view.ViewPager
 			android:id="@+id/viewPager"
@@ -51,7 +53,7 @@
 		android:layout_marginEnd="8dp"
 		android:layout_marginStart="8dp"
 		ads:adSize="BANNER"
-		ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+		ads:adUnitId="ca-app-pub-9969081594277709/5219389471"
 		ads:layout_constraintBottom_toBottomOf="parent"
 		ads:layout_constraintEnd_toEndOf="parent"
 		ads:layout_constraintHorizontal_bias="0.0"
@@ -59,4 +61,3 @@
 	</com.google.android.gms.ads.AdView>
 
 </android.support.constraint.ConstraintLayout>
-	<!--ads:adUnitId="ca-app-pub-9969081594277709/5219389471"-->
