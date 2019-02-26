@@ -29,7 +29,9 @@ import java.util.Objects;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.main.MemoQueManager;
 import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
+import memoque.bobs.com.memoque.main.adapter.IAdapter;
 import memoque.bobs.com.memoque.main.adapter.SearchAdapter;
+import memoque.bobs.com.memoque.main.memo.BSMemo;
 import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
 
 /**
@@ -105,11 +107,19 @@ public class SearchFragment extends Fragment
 					View childview = recyclerView.findChildViewUnder( motionEvent.getX(), motionEvent.getY() );
 					if( childview != null ) {
 						int currentPosition = recyclerView.getChildAdapterPosition( childview );
+						IAdapter searchAdapter = (IAdapter)recyclerView.getAdapter();
+						if( null == searchAdapter )
+							return false;
+
+						BSMemo memo = searchAdapter.getSelectedMemo( currentPosition );
+						if( null == memo )
+							return false;
 
 						Intent intent = new Intent( getContext(), DetailMemoActivity.class );
-						intent.putExtra( DetailMemoActivity.MEMO_INDEX, currentPosition );
+						intent.putExtra( DetailMemoActivity.MEMO_INDEX, memo.getIndex() );
+						intent.putExtra( DetailMemoActivity.ADAPTER_INDEX, currentPosition );
 						intent.putExtra( DetailMemoActivity.TAB_KEY, Adapterkey.SEARCH );
-						startActivityForResult( intent , 1);
+						startActivityForResult( intent, 1 );
 					}
 				}
 				return false;

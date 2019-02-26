@@ -15,14 +15,14 @@ public class DBManager
 	public static final String DB_PATH = "memoque.db";
 
 	public static final String TABLE_NAME          = "memos";
-	public static final String COLUMN_ID           = "_id";
+	public static final String COLUMN_ID           = "number_id";
 	public static final String COLUMN_TITLE        = "title";
 	public static final String COLUMN_DATE         = "date";
 	public static final String COLUMN_CONTENT      = "content";
 	public static final String COLUMN_INDEX        = "idx";
 	public static final String COLUMN_COMPLETENOTI = "completenoti";
 
-	public static final String DB_CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_CONTENT + " TEXT, " + COLUMN_INDEX + " INTEGER, " + COLUMN_COMPLETENOTI + " TEXT)";
+	public static final String DB_CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_CONTENT + " TEXT, " + COLUMN_INDEX + " INTEGER, " + COLUMN_COMPLETENOTI + " TEXT)";
 
 	private SQLiteDatabase        database = null;
 	private MemoQueDatabaseHelper helper;
@@ -35,10 +35,16 @@ public class DBManager
 
 	public List<BSMemo> getAllMemos()
 	{
+		if( helper == null )
+			return null;
+
 		// 디비에 저장되어있는 메모 리스트 전체를 가져온다
 		List<BSMemo> list = new ArrayList<>();
 
 		database = helper.getReadableDatabase();
+		if( database == null )
+			return null;
+
 		cursor = database.query( TABLE_NAME, null, null, null, null, null, null );
 		while( cursor.moveToNext() ) {
 			BSMemo memo = new BSMemo();
@@ -58,8 +64,13 @@ public class DBManager
 
 	public void insert( BSMemo insertmemo )
 	{
+		if( helper == null )
+			return;
+
 		// 디비에 해당 메모를 저장한다
 		database = helper.getWritableDatabase();
+		if( database == null )
+			return;
 
 		ContentValues values = new ContentValues();
 		values.put( COLUMN_TITLE, insertmemo.getTitle() );
@@ -73,8 +84,13 @@ public class DBManager
 
 	public void update( BSMemo updatememo )
 	{
+		if( helper == null )
+			return;
+
 		// 디비에 해당 메모내용을 갱신한다
 		database = helper.getWritableDatabase();
+		if( database == null )
+			return;
 
 		ContentValues values = new ContentValues();
 		values.put( COLUMN_TITLE, updatememo.getTitle() );
@@ -88,8 +104,14 @@ public class DBManager
 
 	public void delete( BSMemo deletememo )
 	{
+		if( helper == null )
+			return;
+
 		// 디비에서 해당 메모를 삭제한다
 		database = helper.getWritableDatabase();
+		if( database == null )
+			return;
+
 		database.delete( TABLE_NAME, COLUMN_ID + "=" + deletememo.getId(), null );
 	}
 }

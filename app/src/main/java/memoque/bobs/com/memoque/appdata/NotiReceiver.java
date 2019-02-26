@@ -33,6 +33,9 @@ public class NotiReceiver extends BroadcastReceiver
 			return;
 
 		for( BSMemo memo : memos ) {
+			if( memo == null || memo.getDateTime() == null )
+				continue;
+
 			if( !now.isBefore( memo.getDateTime() ) && !memo.isCompleteNoti() )
 				AppData.sendNotification( memo );
 		}

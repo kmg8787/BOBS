@@ -9,4 +9,5 @@ interface IAdapter {
     fun addToIndex(index: Int?)
     fun removeToIndex(index: Int?)
     fun searchMemos(BSMemos : List<BSMemo>?)
+    fun getSelectedMemo(index: Int?) : BSMemo?
 }

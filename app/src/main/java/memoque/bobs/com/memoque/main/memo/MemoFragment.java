@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
+import memoque.bobs.com.memoque.main.adapter.IAdapter;
 import memoque.bobs.com.memoque.main.adapter.MemoQueAdapter;
 
 /**
@@ -37,18 +38,26 @@ public class MemoFragment extends Fragment
 			@Override
 			public boolean onInterceptTouchEvent( @NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent )
 			{
-				if( motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
+				if( motionEvent.getAction() == MotionEvent.ACTION_DOWN && motionEvent.getAction() != MotionEvent.ACTION_MOVE ) {
 					// 터치한 메모 수정 액티비티를 띄운다
 					View childview = recyclerView.findChildViewUnder( motionEvent.getX(), motionEvent.getY() );
 					if( childview != null ) {
 						int currentPosition = recyclerView.getChildAdapterPosition( childview );
+						IAdapter searchAdapter = (IAdapter)recyclerView.getAdapter();
+						if( null == searchAdapter )
+							return false;
+
+						BSMemo memo = searchAdapter.getSelectedMemo( currentPosition );
+						if( null == memo )
+							return false;
 
 						Intent intent = new Intent( getContext(), DetailMemoActivity.class );
-						intent.putExtra( DetailMemoActivity.MEMO_INDEX, currentPosition );
+						intent.putExtra( DetailMemoActivity.MEMO_INDEX, memo.getIndex() );
+						intent.putExtra( DetailMemoActivity.ADAPTER_INDEX, currentPosition );
 						intent.putExtra( DetailMemoActivity.TAB_KEY, Adapterkey.MEMO );
 						startActivity( intent );
 					}
-			}
+				}
 				return false;
 			}
 

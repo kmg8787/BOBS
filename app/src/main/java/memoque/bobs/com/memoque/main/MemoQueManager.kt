@@ -5,6 +5,7 @@ import android.app.Activity
 import memoque.bobs.com.memoque.db.DBManager
 import memoque.bobs.com.memoque.main.adapter.IAdapter
 import memoque.bobs.com.memoque.main.memo.BSMemo
+import org.joda.time.DateTime
 import java.util.*
 
 class MemoQueManager private constructor() {
@@ -40,35 +41,55 @@ class MemoQueManager private constructor() {
         databaseManager?.insert(BSMemo)
     }
 
-    fun update(key: MemoQueManager.Adapterkey, index: Int) {
+    fun update(key: MemoQueManager.Adapterkey, BSMemo: BSMemo, index: Int) {
         // 메모 업데이트
         when (key) {
-            Adapterkey.MEMO -> adapterListeners[key]?.refreshToIndex(index)
-            Adapterkey.SEARCH -> {
+            Adapterkey.MEMO -> {
                 adapterListeners[key]?.refreshToIndex(index)
+                adapterListeners[Adapterkey.SEARCH]?.refreshAll()
+            }
+            Adapterkey.SEARCH -> {
                 adapterListeners[Adapterkey.MEMO]?.refreshAll()
+                adapterListeners[key]?.refreshToIndex(index)
             }
         }
 
-        databaseManager?.update(memos[index])
+        databaseManager?.update(BSMemo)
     }
 
-    fun update(memo: BSMemo){
+    fun update(memo: BSMemo) {
         databaseManager?.update(memo)
     }
 
-    fun remove(key: MemoQueManager.Adapterkey, index: Int) {
-        // 메모 삭제
-        databaseManager?.delete(memos.removeAt(index))
+    fun remove(key: MemoQueManager.Adapterkey, memoindex: Int, viewindex: Int): Boolean {
+        if (memos.size == viewindex)
+            return false
 
-        when (key) {
-            Adapterkey.MEMO ->
-                adapterListeners[key]?.removeToIndex(index)
-            Adapterkey.SEARCH -> {
-                adapterListeners[key]?.removeToIndex(index)
-                adapterListeners[Adapterkey.MEMO]?.refreshAll()
+        var removeMemo = BSMemo()
+
+        for (memo in memos) {
+            if (memo.index == memoindex) {
+                removeMemo = memo
             }
         }
+
+        memos.remove(removeMemo)
+
+        // 메모 삭제
+        databaseManager?.delete(removeMemo)
+
+        when (key) {
+            Adapterkey.MEMO -> {
+                adapterListeners[key]?.removeToIndex(viewindex)
+                adapterListeners[Adapterkey.SEARCH]?.refreshAll()
+            }
+            Adapterkey.SEARCH -> {
+                adapterListeners[Adapterkey.MEMO]?.refreshAll()
+                adapterListeners[key]?.removeToIndex(viewindex)
+            }
+        }
+
+        return true
     }
 
     fun memosSearch(key: MemoQueManager.Adapterkey, filterText: String): Boolean {
@@ -97,10 +118,12 @@ class MemoQueManager private constructor() {
         })
     }
 
-    fun getMemo(index: Int): BSMemo? {
-        // 메모 리스트 정렬 후 리턴한다
-        listSort()
-        return memos[index]
+    fun getMemoToMemoIndex(index: Int): BSMemo? {
+        for (memo in memos) {
+            if (memo.index == index) return memo
+        }
+
+        return null
     }
 
     fun getMemoIndex(): Int {
@@ -124,5 +147,14 @@ class MemoQueManager private constructor() {
     fun getMemosSize(): Int {
         // 메모리스트 크기 리턴
         return memos.size
+    }
+
+    fun checkMemosDate() {
+        val now = DateTime()
+
+        for (memo in memos) {
+            if (memo.dateTime!!.isBefore(now))
+                memo.isCompleteNoti = true
+        }
     }
 }

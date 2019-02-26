@@ -33,6 +33,7 @@ android {
     }
     buildTypes {
         debug {
+            debuggable true
             buildConfigField "String", 'ADMOB_ID', '"ca-app-pub-3940256099942544/6300978111"'
         }
         release {
@@ -97,4 +98,5 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.9@aar') {
         transitive = true
     }
+    implementation 'gun0912.ted:tedpermission:2.2.2'
 }

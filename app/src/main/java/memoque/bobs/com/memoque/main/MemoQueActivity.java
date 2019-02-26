@@ -142,6 +142,9 @@ public class MemoQueActivity extends AppCompatActivity
 		super.onDestroy();
 
 		if( AppData.isEnableNotification() ) {
+			// 현재 시간보다 이전인 메모는 알림을 보낸걸로 처리한다(종료시 바로 알림이 가는걸 방지)
+			MemoQueManager.Companion.getInstance().checkMemosDate();
+
 			// 알람이 켜져있으면 서비스를 실행한다
 			NotiService.serviceIntent = new Intent( this, NotiService.class );
 			startService( NotiService.serviceIntent );

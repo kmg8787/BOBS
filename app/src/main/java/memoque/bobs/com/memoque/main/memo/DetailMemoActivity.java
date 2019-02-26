@@ -29,6 +29,7 @@ import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
 public class DetailMemoActivity extends AppCompatActivity
 {
 	public static final String MEMO_INDEX = "memoindex";
+	public static final String ADAPTER_INDEX = "adapterindex";
 	public static final String TAB_KEY    = "tabkey";
 
 	enum DetailMemoStatus
@@ -78,9 +79,9 @@ public class DetailMemoActivity extends AppCompatActivity
 			detailMemoStatus = DetailMemoStatus.EDIT_MEMO;
 			setTitle( R.string.detail_memo_title_edit );
 
-			currentPosition = extras.getInt( MEMO_INDEX );
+			currentPosition = extras.getInt( ADAPTER_INDEX );
 			// 추가 되어있는 메모 데이터를 가져온다
-			BSMemo = MemoQueManager.Companion.getInstance().getMemo( currentPosition );
+			BSMemo = MemoQueManager.Companion.getInstance().getMemoToMemoIndex( extras.getInt( MEMO_INDEX ) );
 
 			if( BSMemo != null ) {
 				titleEdit.setText( BSMemo.getTitle() );
@@ -141,7 +142,7 @@ public class DetailMemoActivity extends AppCompatActivity
 
 					case EDIT_MEMO:
 						// 메모 수정 상태면 디비를 업데이트한다
-						MemoQueManager.Companion.getInstance().update( currentTabkey, currentPosition );
+						MemoQueManager.Companion.getInstance().update( currentTabkey, BSMemo, currentPosition );
 						break;
 				}
 
@@ -150,14 +151,12 @@ public class DetailMemoActivity extends AppCompatActivity
 				break;
 
 			case R.id.menu_delete:
-				if( detailMemoStatus == DetailMemoStatus.EDIT_MEMO ) {
-					// 메모 추가 상태면 삭제하지 못한다
+				// 디비에서 메모를 삭제한다
+				if( detailMemoStatus == DetailMemoStatus.ADD_MEMO || !MemoQueManager.Companion.getInstance().remove( currentTabkey, BSMemo.getIndex(), currentPosition )) {
+					// 메모 추가 상태거나 삭제함수를 돌리지 못했으면 삭제하지 못한다
 					Toast.makeText( this, R.string.detail_memo_menu_remove_warning, Toast.LENGTH_SHORT ).show();
 					break;
 				}
-
-				// 디비에서 메모를 삭제한다
-				MemoQueManager.Companion.getInstance().remove( currentTabkey, currentPosition );
 
 				// 액티비티를 종료한다
 				finish();

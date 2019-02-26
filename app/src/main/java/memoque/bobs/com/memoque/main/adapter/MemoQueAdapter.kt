@@ -29,7 +29,7 @@ open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         // 리사이클러뷰 카드뷰별 세팅
         val cardView = viewHolder.cardView
-        val (_, _,title1, content1, date1) = BSMemoList!![i]
+        val (_, _, title1, content1, date1) = BSMemoList!![i]
 
         val title = cardView.findViewById<TextView>(R.id.memo_title)
         title.text = title1
@@ -54,6 +54,7 @@ open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
         BSMemoList = MemoQueManager.instance.getMemos()
         notifyDataSetChanged()
     }
+
     override fun refreshToIndex(index: Int?) {
         // 해당 인덱스 카드뷰 갱신
         if (index != null)
@@ -61,24 +62,32 @@ open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
     }
 
     override fun addToIndex(index: Int?) {
-        // 메모 추가
-        BSMemoList = MemoQueManager.instance.getMemos()
-
         if (index != null)
             notifyItemInserted(index)
+
+        // 메모 추가
+        BSMemoList = MemoQueManager.instance.getMemos()
     }
 
     override fun removeToIndex(index: Int?) {
-        // 메모 삭제
-        BSMemoList = MemoQueManager.instance.getMemos()
-
         if (index != null)
             notifyItemRemoved(index)
+
+        // 메모 삭제
+        BSMemoList = MemoQueManager.instance.getMemos()
     }
 
     override fun searchMemos(BSMemos: List<BSMemo>?) {
         // 검색탭 메모 리스트 갱신
         BSMemoList = BSMemos
         notifyDataSetChanged()
+    }
+
+    override fun getSelectedMemo(index: Int?): BSMemo? {
+        if (BSMemoList == null){
+            return null
+        }
+
+        return BSMemoList!![index!!]
     }
 }

@@ -2,6 +2,11 @@
 <resources>
 	<string name="app_name">메모큐</string>
 	<string name="splash_title">BOBS</string>
+	<string name="permission_request_title">권한 요청</string>
+	<string name="permission_request_content">이 앱을 실행하려면 저장소 권한이 필요합니다.</string>
+	<string name="permission_request_error_title">권한 요청 에러</string>
+	<string name="permission_request_error_content">권한 요청을 허용하지 않을 경우 앱을 실행 할 수 없습니다. 권한 요청을 허용해 주세요.</string>
+	<string name="permission_request_error_positive">확인</string>
 	<string name="title_touchthescreen">화면을 터치해주세요</string>
 	<string name="main_backpressed">뒤로 버튼을 한번 더 누르시면 종료됩니다</string>
 
@@ -32,7 +37,7 @@
 	<string name="detail_memo_menu_exit">종료</string>
 	<string name="detail_memo_menu_save_empty_title">제목을 입력해주세요.</string>
 	<string name="detail_memo_menu_save_empty_content">내용을 입력해주세요.</string>
-	<string name="detail_memo_menu_remove_warning">메모 추가 화면에서는 삭제 할 수 없습니다.</string>
+	<string name="detail_memo_menu_remove_warning">메모를 삭제 할 수 없습니다.</string>
 
 	<string name="detail_memo_content_title">제목</string>
 	<string name="detail_memo_content_alarmdate">알람시간</string>
@@ -45,4 +50,5 @@
 	<string name="select_alarmtime_decision">위 시간으로 알람을 설정하시겠습니까?</string>
 
 	<string name="notification_title">알람 도착</string>
+	<string name="admob_unit_id">ca-app-pub-9969081594277709/5219389471</string>
 </resources>
