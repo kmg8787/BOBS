@@ -45,6 +45,7 @@
 		android:ems="10"
 		android:hint="@string/detail_memo_content_title"
 		android:inputType="text"
+		android:maxLength="20"
 		app:layout_constraintBottom_toTopOf="@+id/text_alarm_date"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/text_title"/>
@@ -83,7 +84,8 @@
 		android:ems="10"
 		android:gravity="start|top"
 		android:hint="@string/detail_memo_content_hint"
-		android:inputType="text"
+		android:inputType="textMultiLine"
+		android:maxLength="1000"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"

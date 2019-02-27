@@ -26,7 +26,7 @@ public class SplashActivity extends Activity
 {
 	private static int PERMISSIONS_REQUEST_CODE = 100;
 
-	String[] requestPermissions = { permission.WRITE_EXTERNAL_STORAGE };
+	String[] requestPermissions = { permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE };
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
@@ -35,18 +35,19 @@ public class SplashActivity extends Activity
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
 		setContentView( R.layout.activity_splash );
 
-		startSplash();
-//		checkPermissions();
+//		startSplash();
+		checkPermissions();
 	}
 
 	private void checkPermissions()
 	{
 		int writestoreage = ContextCompat.checkSelfPermission( this, permission.WRITE_EXTERNAL_STORAGE );
+		int readstoreage = ContextCompat.checkSelfPermission( this, permission.READ_EXTERNAL_STORAGE );
 
-		if(  writestoreage == PackageManager.PERMISSION_GRANTED ) {
+		if(  writestoreage == PackageManager.PERMISSION_GRANTED && readstoreage == PackageManager.PERMISSION_GRANTED ) {
 			startSplash();
 		} else {
-			if( ActivityCompat.shouldShowRequestPermissionRationale( this, requestPermissions[0] )  ) {
+			if( ActivityCompat.shouldShowRequestPermissionRationale( this, requestPermissions[0] ) || ActivityCompat.shouldShowRequestPermissionRationale( this, requestPermissions[1] )  ) {
 				new AlertDialog.Builder( this ).setTitle( R.string.permission_request_title )
 																  .setMessage( R.string.permission_request_content )
 																  .setCancelable( false )

@@ -3,16 +3,13 @@ package memoque.bobs.com.memoque.main.search;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnItemTouchListener;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -29,10 +26,7 @@ import java.util.Objects;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.main.MemoQueManager;
 import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
-import memoque.bobs.com.memoque.main.adapter.IAdapter;
 import memoque.bobs.com.memoque.main.adapter.SearchAdapter;
-import memoque.bobs.com.memoque.main.memo.BSMemo;
-import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,45 +92,6 @@ public class SearchFragment extends Fragment
 		searchAdapter.initData();
 		recyclerView.setAdapter( searchAdapter );
 		recyclerView.setLayoutManager( new LinearLayoutManager( getActivity() ) );
-		recyclerView.addOnItemTouchListener( new OnItemTouchListener()
-		{
-			@Override
-			public boolean onInterceptTouchEvent( @NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent )
-			{
-				if( motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-					View childview = recyclerView.findChildViewUnder( motionEvent.getX(), motionEvent.getY() );
-					if( childview != null ) {
-						int currentPosition = recyclerView.getChildAdapterPosition( childview );
-						IAdapter searchAdapter = (IAdapter)recyclerView.getAdapter();
-						if( null == searchAdapter )
-							return false;
-
-						BSMemo memo = searchAdapter.getSelectedMemo( currentPosition );
-						if( null == memo )
-							return false;
-
-						Intent intent = new Intent( getContext(), DetailMemoActivity.class );
-						intent.putExtra( DetailMemoActivity.MEMO_INDEX, memo.getIndex() );
-						intent.putExtra( DetailMemoActivity.ADAPTER_INDEX, currentPosition );
-						intent.putExtra( DetailMemoActivity.TAB_KEY, Adapterkey.SEARCH );
-						startActivityForResult( intent, 1 );
-					}
-				}
-				return false;
-			}
-
-			@Override
-			public void onTouchEvent( @NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent )
-			{
-
-			}
-
-			@Override
-			public void onRequestDisallowInterceptTouchEvent( boolean b )
-			{
-
-			}
-		} );
 
 		return view;
 	}

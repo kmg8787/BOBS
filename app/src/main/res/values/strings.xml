@@ -14,9 +14,12 @@
 		<item name="search_tab">SEARCH</item>
 	</string-array>
 
-	<string name="memo_add_button">Memo Add</string>
-	<string name="memo_alram_on_button">Alram ON</string>
-	<string name="memo_alram_off_button">Alram OFF</string>
+	<string name="memo_add_button">MEMO ADD</string>
+	<string name="memo_alram_on_button">ALRAM ON</string>
+	<string name="memo_alram_off_button">ALRAM OFF</string>
+	<string name="memo_help_button">HELP</string>
+	<string name="memo_help_dialog_title">Please read it!</string>
+	<string name="memo_help_dialog_content">1.Memo titles can be up to 20 characters long and memos can be up to 1000 characters long.\n\n2. When running app sleep and app optimization, the alarm might not turn on normally. Please exit after running the app again.\n\n3. To back up the memoList, simply back up the memoque.db file on \"/memoque/databases/\". If you want to move to another smartphone, simply put the file in the path above.</string>
 	<string name="memo_add_button_warning">Adding memo is only possible from the Memo tab.</string>
 	<string name="memo_alram_on_message">The alarm is on.</string>
 	<string name="memo_alram_off_message">The alarm is off.</string>

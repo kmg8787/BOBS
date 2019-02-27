@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 // 메모 데이터 클래스
-data class BSMemo(var id: Int = 0, var index: Int = 0, var title: String = "", var content: String = "", var date: String = "", var dateTime: DateTime? = null, var isCompleteNoti: Boolean = false) {
+data class BSMemo(var index: Int = 0, var title: String = "", var content: String = "", var date: String = "", var dateTime: DateTime? = null, var isCompleteNoti: Boolean = false) {
     fun checkAndSetDate(newdate: String) {
         if (!TextUtils.isEmpty(date)) {
             val curdateTime = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm").parseDateTime(date)

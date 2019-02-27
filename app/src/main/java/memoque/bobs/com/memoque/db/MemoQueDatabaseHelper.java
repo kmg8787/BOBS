@@ -6,11 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MemoQueDatabaseHelper extends SQLiteOpenHelper
 {
-	private static final int DB_VERSION = 1;
-
 	public MemoQueDatabaseHelper( Context context )
 	{
-		super(context, DBManager.DB_PATH, null, DB_VERSION);
+		super(context, DBManager.DB_PATH, null, 1);
 	}
 
 	@Override

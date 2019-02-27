@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.main.MemoQueManager;
@@ -19,6 +20,7 @@ public class AppData
 {
 	public static final String PREFERENCE           = "com.bobs.memoque";
 	public static final String NOTIFICATION_ENABLED = "notification_enabled";
+	public static final String FIRST_HELP_DIALOG = "first_help_dialog";
 
 	public static Context mainActivity   = null;
 	public static Context splashActivity = null;
@@ -67,6 +69,8 @@ public class AppData
 		// 해당 메모는 알람을 보낸것으로 처리한다
 		memo.setCompleteNoti( true );
 		MemoQueManager.Companion.getInstance().update( memo );
+
+		Log.e( "BOBS", "푸시 발송 완료");
 	}
 
 	public static boolean isEnableNotification()
@@ -95,6 +99,36 @@ public class AppData
 		Editor editor = preferences.edit();
 		if( editor != null ) {
 			editor.putBoolean( NOTIFICATION_ENABLED, value );
+			editor.apply();
+		}
+	}
+
+	public static boolean isEnableFirstHelpDialog()
+	{
+		if( mainActivity == null )
+			return true;
+
+		SharedPreferences preferences = mainActivity.getSharedPreferences( PREFERENCE, Context.MODE_PRIVATE );
+		if( preferences == null )
+			return true;
+
+		// 알람 여부를 가져온다
+		return preferences.getBoolean( FIRST_HELP_DIALOG, true );
+	}
+
+	public static void setEnableFirstHelpDialog( boolean value )
+	{
+		if( mainActivity == null )
+			return;
+
+		SharedPreferences preferences = mainActivity.getSharedPreferences( PREFERENCE, Context.MODE_PRIVATE );
+		if( preferences == null )
+			return;
+
+		// 알람 여부를 세팅한다
+		Editor editor = preferences.edit();
+		if( editor != null ) {
+			editor.putBoolean( FIRST_HELP_DIALOG, value );
 			editor.apply();
 		}
 	}

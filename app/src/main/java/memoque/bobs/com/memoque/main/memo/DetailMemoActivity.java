@@ -28,9 +28,8 @@ import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
 
 public class DetailMemoActivity extends AppCompatActivity
 {
-	public static final String MEMO_INDEX = "memoindex";
-	public static final String ADAPTER_INDEX = "adapterindex";
-	public static final String TAB_KEY    = "tabkey";
+	public static final String MEMO_INDEX    = "memoindex";
+	public static final String TAB_KEY       = "tabkey";
 
 	enum DetailMemoStatus
 	{
@@ -38,16 +37,14 @@ public class DetailMemoActivity extends AppCompatActivity
 	}
 
 
-	EditText         titleEdit;
-	EditText         contentEdit;
-	TextView         alarmDateTv;
+	EditText titleEdit;
+	EditText contentEdit;
+	TextView alarmDateTv;
 
 	BSMemo           BSMemo;
 	DateTime         resultDate       = DateTime.now();
 	DetailMemoStatus detailMemoStatus = DetailMemoStatus.ADD_MEMO;
 	Adapterkey       currentTabkey    = Adapterkey.MEMO;
-
-	int              currentPosition  = 0;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
@@ -72,14 +69,10 @@ public class DetailMemoActivity extends AppCompatActivity
 			// 메모 데이터 기본 세팅
 			BSMemo = new BSMemo();
 			BSMemo.setIndex( MemoQueManager.Companion.getInstance().getMemoIndex() );
-			// 추가할 리사이클러뷰 인덱스를 세팅
-			currentPosition = MemoQueManager.Companion.getInstance().getMemosSize();
 		} else {
 			// 값이 있으므로 메모 수정 상태이다
 			detailMemoStatus = DetailMemoStatus.EDIT_MEMO;
 			setTitle( R.string.detail_memo_title_edit );
-
-			currentPosition = extras.getInt( ADAPTER_INDEX );
 			// 추가 되어있는 메모 데이터를 가져온다
 			BSMemo = MemoQueManager.Companion.getInstance().getMemoToMemoIndex( extras.getInt( MEMO_INDEX ) );
 
@@ -137,12 +130,12 @@ public class DetailMemoActivity extends AppCompatActivity
 				switch( detailMemoStatus ) {
 					case ADD_MEMO:
 						// 메모 추가 상태면 디비에 추가한다
-						MemoQueManager.Companion.getInstance().add( Adapterkey.MEMO, BSMemo, currentPosition );
+						MemoQueManager.Companion.getInstance().add( Adapterkey.MEMO, BSMemo );
 						break;
 
 					case EDIT_MEMO:
 						// 메모 수정 상태면 디비를 업데이트한다
-						MemoQueManager.Companion.getInstance().update( currentTabkey, BSMemo, currentPosition );
+						MemoQueManager.Companion.getInstance().update( currentTabkey, BSMemo );
 						break;
 				}
 
@@ -152,7 +145,7 @@ public class DetailMemoActivity extends AppCompatActivity
 
 			case R.id.menu_delete:
 				// 디비에서 메모를 삭제한다
-				if( detailMemoStatus == DetailMemoStatus.ADD_MEMO || !MemoQueManager.Companion.getInstance().remove( currentTabkey, BSMemo.getIndex(), currentPosition )) {
+				if( detailMemoStatus == DetailMemoStatus.ADD_MEMO || !MemoQueManager.Companion.getInstance().remove( currentTabkey, BSMemo.getIndex() ) ) {
 					// 메모 추가 상태거나 삭제함수를 돌리지 못했으면 삭제하지 못한다
 					Toast.makeText( this, R.string.detail_memo_menu_remove_warning, Toast.LENGTH_SHORT ).show();
 					break;

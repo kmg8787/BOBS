@@ -1,12 +1,18 @@
 package memoque.bobs.com.memoque.main;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TabLayout.OnTabSelectedListener;
+import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -21,6 +27,7 @@ import memoque.bobs.com.memoque.BuildConfig;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.appdata.AppData;
 import memoque.bobs.com.memoque.appdata.NotiService;
+import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
 import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
 import memoque.bobs.com.memoque.main.memo.MemoFragment;
 import memoque.bobs.com.memoque.main.search.SearchFragment;
@@ -50,7 +57,7 @@ public class MemoQueActivity extends AppCompatActivity
 		setSupportActionBar( toolbar );
 
 		// 뷰 페이져 생성
-		ViewPager viewPager = findViewById( R.id.viewPager );
+		final ViewPager viewPager = findViewById( R.id.viewPager );
 		viewPager.setAdapter( new FragmentPagerAdapter( getSupportFragmentManager() )
 		{
 			@Override
@@ -83,12 +90,37 @@ public class MemoQueActivity extends AppCompatActivity
 		// 탭에 뷰 페이져 연결
 		TabLayout tabLayout = findViewById( R.id.tabLayout );
 		tabLayout.setupWithViewPager( viewPager );
+		tabLayout.addOnTabSelectedListener( new OnTabSelectedListener()
+		{
+			@Override
+			public void onTabSelected( Tab tab )
+			{
+				if( tab.getPosition() == 1 )
+					MemoQueManager.Companion.getInstance().initAdapterToTab( Adapterkey.SEARCH );
+			}
+
+			@Override
+			public void onTabUnselected( Tab tab )
+			{
+
+			}
+
+			@Override
+			public void onTabReselected( Tab tab )
+			{
+
+			}
+		} );
 
 		if( BuildConfig.IS_FREE_VERSION ) {
 			// free 버전이면 배너광고를 로드한다
 			AdView adView = findViewById( R.id.myAdView );
 			AdRequest adRequest = new AdRequest.Builder().build();
 			adView.loadAd( adRequest );
+		}
+
+		if( AppData.isEnableFirstHelpDialog() ) {
+			openHelpDialog();
 		}
 	}
 
@@ -131,6 +163,11 @@ public class MemoQueActivity extends AppCompatActivity
 				AppData.setEnableNotification( false );
 				Toast.makeText( getApplicationContext(), R.string.memo_alram_off_message, Toast.LENGTH_SHORT ).show();
 				break;
+
+			case R.id.help_dialog:
+				// 도움말 창을 연다
+				openHelpDialog();
+				break;
 		}
 
 		return super.onOptionsItemSelected( item );
@@ -156,5 +193,29 @@ public class MemoQueActivity extends AppCompatActivity
 	{
 		if( doubleBackPressed != null )
 			doubleBackPressed.onBackPressed();
+	}
+
+	private void openHelpDialog()
+	{
+		new AlertDialog.Builder( this ).setTitle( R.string.memo_help_dialog_title )
+									   .setMessage( R.string.memo_help_dialog_content )
+									   .setCancelable( false )
+									   .setPositiveButton( R.string.permission_request_error_positive, new OnClickListener()
+									   {
+										   @Override
+										   public void onClick( DialogInterface dialog, int which )
+										   {
+											   AppData.setEnableFirstHelpDialog( false );
+										   }
+									   } )
+									   .setOnCancelListener( new OnCancelListener()
+									   {
+										   @Override
+										   public void onCancel( DialogInterface dialog )
+										   {
+											   AppData.setEnableFirstHelpDialog( false );
+										   }
+									   } )
+									   .show();
 	}
 }

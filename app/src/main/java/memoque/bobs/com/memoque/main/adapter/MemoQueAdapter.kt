@@ -1,15 +1,17 @@
 package memoque.bobs.com.memoque.main.adapter
 
+import android.content.Intent
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-
 import memoque.bobs.com.memoque.R
+import memoque.bobs.com.memoque.appdata.AppData
 import memoque.bobs.com.memoque.main.MemoQueManager
 import memoque.bobs.com.memoque.main.adapter.MemoQueAdapter.ViewHolder
 import memoque.bobs.com.memoque.main.memo.BSMemo
+import memoque.bobs.com.memoque.main.memo.DetailMemoActivity
 
 open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
 
@@ -29,16 +31,27 @@ open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         // 리사이클러뷰 카드뷰별 세팅
         val cardView = viewHolder.cardView
-        val (_, _, title1, content1, date1) = BSMemoList!![i]
+        val memo = BSMemoList!![i]
 
         val title = cardView.findViewById<TextView>(R.id.memo_title)
-        title.text = title1
+        title.text = memo.title
 
         val content = cardView.findViewById<TextView>(R.id.memo_content)
-        content.text = content1
+        content.text = memo.content
 
         val date = cardView.findViewById<TextView>(R.id.memo_date)
-        date.text = date1
+        date.text = memo.date
+
+        cardView.setOnClickListener { run {
+            val intent = Intent(AppData.mainActivity, DetailMemoActivity::class.java)
+            intent.putExtra(DetailMemoActivity.MEMO_INDEX, memo.index)
+            intent.putExtra(DetailMemoActivity.TAB_KEY, getAdapterKey())
+            AppData.mainActivity.startActivity(intent)
+        } }
+    }
+
+    open fun getAdapterKey() : MemoQueManager.Adapterkey{
+        return MemoQueManager.Adapterkey.MEMO
     }
 
     override fun getItemCount(): Int {
@@ -55,39 +68,17 @@ open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
         notifyDataSetChanged()
     }
 
-    override fun refreshToIndex(index: Int?) {
-        // 해당 인덱스 카드뷰 갱신
-        if (index != null)
-            notifyItemChanged(index)
-    }
-
-    override fun addToIndex(index: Int?) {
-        if (index != null)
-            notifyItemInserted(index)
-
-        // 메모 추가
-        BSMemoList = MemoQueManager.instance.getMemos()
-    }
-
-    override fun removeToIndex(index: Int?) {
-        if (index != null)
-            notifyItemRemoved(index)
-
-        // 메모 삭제
-        BSMemoList = MemoQueManager.instance.getMemos()
-    }
-
     override fun searchMemos(BSMemos: List<BSMemo>?) {
         // 검색탭 메모 리스트 갱신
         BSMemoList = BSMemos
         notifyDataSetChanged()
     }
 
-    override fun getSelectedMemo(index: Int?): BSMemo? {
-        if (BSMemoList == null){
-            return null
-        }
+    override fun clear() {
+        if (BSMemoList == null || BSMemoList!!.isEmpty())
+            return
 
-        return BSMemoList!![index!!]
+        BSMemoList = mutableListOf()
+        notifyDataSetChanged()
     }
 }

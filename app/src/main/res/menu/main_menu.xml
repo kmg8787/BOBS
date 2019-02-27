@@ -16,4 +16,10 @@
 		android:title="@string/memo_alram_off_button"
 		app:showAsAction="never"
 		/>
+
+	<item
+		android:id="@+id/help_dialog"
+		android:title="@string/memo_help_button"
+		app:showAsAction="never"
+		/>
 </menu>

@@ -34,23 +34,20 @@ class MemoQueManager private constructor() {
         adapterListeners[key] = listener
     }
 
-    fun add(key: Adapterkey, BSMemo: BSMemo, index: Int) {
+    fun add(key: Adapterkey, BSMemo: BSMemo) {
         // 메모 추가
         memos.add(BSMemo)
-        adapterListeners[key]?.addToIndex(index)
+        adapterListeners[key]?.refreshAll()
         databaseManager?.insert(BSMemo)
     }
 
-    fun update(key: MemoQueManager.Adapterkey, BSMemo: BSMemo, index: Int) {
+    fun update(key: MemoQueManager.Adapterkey, BSMemo: BSMemo) {
         // 메모 업데이트
         when (key) {
-            Adapterkey.MEMO -> {
-                adapterListeners[key]?.refreshToIndex(index)
-                adapterListeners[Adapterkey.SEARCH]?.refreshAll()
-            }
+            Adapterkey.MEMO -> adapterListeners[key]?.refreshAll()
             Adapterkey.SEARCH -> {
                 adapterListeners[Adapterkey.MEMO]?.refreshAll()
-                adapterListeners[key]?.refreshToIndex(index)
+                adapterListeners[key]?.refreshAll()
             }
         }
 
@@ -61,10 +58,7 @@ class MemoQueManager private constructor() {
         databaseManager?.update(memo)
     }
 
-    fun remove(key: MemoQueManager.Adapterkey, memoindex: Int, viewindex: Int): Boolean {
-        if (memos.size == viewindex)
-            return false
-
+    fun remove(key: MemoQueManager.Adapterkey, memoindex: Int): Boolean {
         var removeMemo = BSMemo()
 
         for (memo in memos) {
@@ -79,13 +73,11 @@ class MemoQueManager private constructor() {
         databaseManager?.delete(removeMemo)
 
         when (key) {
-            Adapterkey.MEMO -> {
-                adapterListeners[key]?.removeToIndex(viewindex)
-                adapterListeners[Adapterkey.SEARCH]?.refreshAll()
-            }
+            Adapterkey.MEMO ->
+                adapterListeners[key]?.refreshAll()
             Adapterkey.SEARCH -> {
                 adapterListeners[Adapterkey.MEMO]?.refreshAll()
-                adapterListeners[key]?.removeToIndex(viewindex)
+                adapterListeners[key]?.refreshAll()
             }
         }
 
@@ -102,6 +94,11 @@ class MemoQueManager private constructor() {
         }
 
         return true
+    }
+
+    fun initAdapterToTab(key: Adapterkey)
+    {
+        adapterListeners[key]?.clear()
     }
 
     private fun listSort() {

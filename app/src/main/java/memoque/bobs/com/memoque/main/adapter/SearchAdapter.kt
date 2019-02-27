@@ -7,4 +7,8 @@ class SearchAdapter : MemoQueAdapter(){
         // 매니져에 검색탭용 어뎁터를 세팅한다
         MemoQueManager.instance.setAdapterListener(MemoQueManager.Adapterkey.SEARCH, this)
     }
+
+    override fun getAdapterKey() : MemoQueManager.Adapterkey{
+        return MemoQueManager.Adapterkey.SEARCH
+    }
 }
