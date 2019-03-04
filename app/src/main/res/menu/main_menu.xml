@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-		android:id="@+id/memo_add"
-		android:title="@string/memo_add_button"
-		app:showAsAction="never"
-		/>
-	<item
 		android:id="@+id/alram_on"
 		android:title="@string/memo_alram_on_button"
 		app:showAsAction="never"

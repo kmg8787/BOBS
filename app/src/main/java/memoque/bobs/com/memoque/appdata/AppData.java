@@ -13,8 +13,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import memoque.bobs.com.memoque.R;
-import memoque.bobs.com.memoque.main.MemoQueManager;
 import memoque.bobs.com.memoque.main.memo.BSMemo;
+import memoque.bobs.com.memoque.splash.SplashActivity;
 
 public class AppData
 {
@@ -25,39 +25,41 @@ public class AppData
 	public static Context mainActivity   = null;
 	public static Context splashActivity = null;
 
-	public static void sendNotification( BSMemo memo )
+	public static void sendNotification( BSMemo memo, Context context )
 	{
 		// 액티비티가 널이거나 알림이 꺼져있으면 보내지 않는다
-		if( mainActivity == null || !isEnableNotification() )
+		if( !isEnableNotification(context) || memo == null) {
+			Log.e( "BOBS", "노티 발송 실패" );
 			return;
+		}
 
 		NotificationCompat.Builder builder = null;
-		NotificationManager manager = (NotificationManager)mainActivity.getSystemService( Context.NOTIFICATION_SERVICE );
+		NotificationManager manager = (NotificationManager)context.getSystemService( Context.NOTIFICATION_SERVICE );
 		if( null != manager ) {
 			// 채널ID 값이 필수로 들어가야한다
 			if( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O ) {
 				NotificationChannel notificationChannel = new NotificationChannel( "memoque", "memoque notification", NotificationManager.IMPORTANCE_DEFAULT );
 				manager.createNotificationChannel( notificationChannel );
-				builder = new NotificationCompat.Builder( mainActivity, notificationChannel.getId() );
+				builder = new NotificationCompat.Builder( context, notificationChannel.getId() );
 			} else {
-				builder = new NotificationCompat.Builder( mainActivity, "memoque" );
+				builder = new NotificationCompat.Builder( context, "memoque" );
 			}
 		}
 
 		// 알람을 터치했을때 앱이 실행되도록 스플래쉬 액티비티를 펜딩인텐트에 세팅한다
-		Intent intent = new Intent( splashActivity, splashActivity.getClass() );
+		Intent intent = new Intent( context, SplashActivity.class );
 		intent.setAction( Intent.ACTION_MAIN );
 		intent.addCategory( Intent.CATEGORY_LAUNCHER );
 		intent.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP  );
-		PendingIntent pendingIntent = PendingIntent.getActivity( splashActivity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
+		PendingIntent pendingIntent = PendingIntent.getActivity( context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
 		if( null != builder ) {
 			// 알람에 대한 데이터들을 세팅한다
 			builder.setSmallIcon( R.drawable.baseline_note_24 );
-			builder.setContentTitle( mainActivity.getString( R.string.notification_title ) );
+			builder.setContentTitle( context.getString( R.string.notification_title ) );
 			builder.setContentText( memo.getTitle() );
 			builder.setDefaults( Notification.DEFAULT_VIBRATE );
-			builder.setLargeIcon( BitmapFactory.decodeResource( mainActivity.getResources(), R.drawable.baseline_note_white_48 ) );
+			builder.setLargeIcon( BitmapFactory.decodeResource( context.getResources(), R.drawable.baseline_note_white_48 ) );
 			builder.setPriority( NotificationCompat.PRIORITY_DEFAULT );
 			builder.setAutoCancel( true );
 			builder.setContentIntent( pendingIntent );
@@ -68,17 +70,16 @@ public class AppData
 
 		// 해당 메모는 알람을 보낸것으로 처리한다
 		memo.setCompleteNoti( true );
-		MemoQueManager.Companion.getInstance().update( memo );
 
-		Log.e( "BOBS", "푸시 발송 완료");
+		Log.e( "BOBS", "노티 발송 완료");
 	}
 
-	public static boolean isEnableNotification()
+	public static boolean isEnableNotification(Context context)
 	{
-		if( mainActivity == null )
+		if( context == null )
 			return true;
 
-		SharedPreferences preferences = mainActivity.getSharedPreferences( PREFERENCE, Context.MODE_PRIVATE );
+		SharedPreferences preferences = context.getSharedPreferences( PREFERENCE, Context.MODE_PRIVATE );
 		if( preferences == null )
 			return true;
 

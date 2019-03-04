@@ -38,6 +38,7 @@
 	<string name="detail_memo_menu_delete">삭제</string>
 	<string name="detail_memo_menu_reset">초기화</string>
 	<string name="detail_memo_menu_exit">종료</string>
+	<string name="detail_memo_menu_save_max_memos">현재 메모수는 최대값인 $1%d개 이므로 더 이상 저장 할 수 없습니다. 메모 추가창을 종료합니다.</string>
 	<string name="detail_memo_menu_save_empty_title">제목을 입력해주세요.</string>
 	<string name="detail_memo_menu_save_empty_content">내용을 입력해주세요.</string>
 	<string name="detail_memo_menu_remove_warning">메모를 삭제 할 수 없습니다.</string>

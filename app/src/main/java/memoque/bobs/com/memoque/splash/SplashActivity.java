@@ -19,12 +19,11 @@ import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.appdata.AppData;
-import memoque.bobs.com.memoque.appdata.NotiService;
 import memoque.bobs.com.memoque.title.TitleActivity;
 
 public class SplashActivity extends Activity
 {
-	private static int PERMISSIONS_REQUEST_CODE = 100;
+	private static final int PERMISSIONS_REQUEST_CODE = 100;
 
 	String[] requestPermissions = { permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE };
 
@@ -103,7 +102,6 @@ public class SplashActivity extends Activity
 		// fabric 초기화
 		Fabric.with( SplashActivity.this, new Crashlytics() );
 
-		NotiService.serviceIntent = null;
 		AppData.splashActivity = SplashActivity.this;
 
 		Handler handler = new Handler();

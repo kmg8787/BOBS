@@ -1,10 +1,11 @@
 package memoque.bobs.com.memoque.main
 
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.content.Context
 import memoque.bobs.com.memoque.db.DBManager
 import memoque.bobs.com.memoque.main.adapter.IAdapter
 import memoque.bobs.com.memoque.main.memo.BSMemo
+import memoque.bobs.com.memoque.notification.NotificationInfo
 import org.joda.time.DateTime
 import java.util.*
 
@@ -14,18 +15,19 @@ class MemoQueManager private constructor() {
         MEMO, SEARCH
     }
 
-    var databaseManager: DBManager? = null
+    private var databaseManager: DBManager? = null
     private var memos = mutableListOf<BSMemo>()
     private val adapterListeners = hashMapOf<Adapterkey, IAdapter>()
 
     companion object {
         @SuppressLint("StaticFieldLeak")
         val instance = MemoQueManager()
+        val MAX_MEMO = 500
     }
 
-    fun setDatabase(activity: Activity) {
+    fun setDatabase(context: Context) {
         // 디비를 세팅하고 디비에 저장되어있는 메모리스트를 가져온다
-        databaseManager = DBManager(activity)
+        databaseManager = DBManager(context)
         memos = databaseManager!!.allMemos
     }
 
@@ -96,8 +98,7 @@ class MemoQueManager private constructor() {
         return true
     }
 
-    fun initAdapterToTab(key: Adapterkey)
-    {
+    fun initAdapterToTab(key: Adapterkey) {
         adapterListeners[key]?.clear()
     }
 
@@ -153,5 +154,58 @@ class MemoQueManager private constructor() {
             if (memo.dateTime!!.isBefore(now))
                 memo.isCompleteNoti = true
         }
+    }
+
+    fun isMemosNotNoti(): Boolean {
+        var notNoti = true
+
+        if (memos.size > 0) {
+            for (memo in memos) {
+                if (!memo.isCompleteNoti)
+                    notNoti = false
+            }
+        }
+
+        return notNoti
+    }
+
+    fun isMaxMemos(): Boolean {
+        return memos.size == MAX_MEMO
+    }
+
+    fun getNextNotiInfo(): NotificationInfo {
+        val notificationInfo = NotificationInfo()
+        val now = DateTime()
+
+        val dateComparatorList = memos
+        Collections.sort(dateComparatorList, dataComparator)
+
+        for (i in 0 until dateComparatorList.size) {
+            val memo = dateComparatorList[i]
+
+           val minMilliseconds = memo.dateTime!!.millis - now.millis
+
+            if (minMilliseconds < 0 || memo.isCompleteNoti)
+                continue
+
+            notificationInfo.setInfoData(memo, minMilliseconds)
+            break
+        }
+
+        return notificationInfo
+    }
+
+    val dataComparator = Comparator { o1: BSMemo, o2: BSMemo ->
+
+        val now = DateTime()
+
+        val o1Millisecond = o1.dateTime!!.millis - now.millis
+        val o2Millisecond = o2.dateTime!!.millis - now.millis
+
+        if(o1Millisecond < o2Millisecond)
+            return@Comparator -1
+        else if(o1Millisecond > o2Millisecond)
+            return@Comparator 1
+        return@Comparator 0
     }
 }

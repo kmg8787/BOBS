@@ -16,8 +16,8 @@
 		android:roundIcon="@mipmap/ic_memoque_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
-		tools:ignore="GoogleAppIndexingWarning"
-		android:allowBackup="false">
+		android:allowBackup="false"
+		tools:ignore="GoogleAppIndexingWarning">
 		<activity
 			android:name=".main.memo.DetailMemoActivity"
 			android:label="@string/detail_memo_title_add"
@@ -28,12 +28,14 @@
 		<activity
 			android:name=".main.MemoQueActivity"
 			android:screenOrientation="portrait"
-			android:theme="@style/Theme.AppCompat.NoActionBar">
+			android:theme="@style/Theme.AppCompat.NoActionBar"
+			android:excludeFromRecents="true">
 		</activity>
 		<activity
 			android:name=".splash.SplashActivity"
 			android:screenOrientation="portrait"
-			android:theme="@style/SplashTheme">
+			android:theme="@style/SplashTheme"
+			android:excludeFromRecents="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
@@ -43,17 +45,23 @@
 		<activity
 			android:name=".title.TitleActivity"
 			android:screenOrientation="portrait"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+			android:excludeFromRecents="true">
 		</activity>
 		<activity
 			android:name="com.google.android.gms.ads.AdActivity"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-			android:theme="@android:style/Theme.Translucent"/>
+			android:theme="@android:style/Theme.Translucent"
+			android:excludeFromRecents="true"/>
 
-		<service android:name=".appdata.NotiService"/>
+		<service android:name=".notification.NotiService"/>
 
 		<receiver
-			android:name=".appdata.NotiReceiver"
+			android:name=".notification.NotiCheckReceiver"
+			android:enabled="true">
+		</receiver>
+		<receiver
+			android:name=".notification.NotifyReceiver"
 			android:enabled="true">
 		</receiver>
 

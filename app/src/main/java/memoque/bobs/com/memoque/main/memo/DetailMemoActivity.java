@@ -23,19 +23,19 @@ import android.widget.Toast;
 import org.joda.time.DateTime;
 
 import memoque.bobs.com.memoque.R;
+import memoque.bobs.com.memoque.appdata.AppData;
 import memoque.bobs.com.memoque.main.MemoQueManager;
 import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
 
 public class DetailMemoActivity extends AppCompatActivity
 {
-	public static final String MEMO_INDEX    = "memoindex";
-	public static final String TAB_KEY       = "tabkey";
+	public static final String MEMO_INDEX = "memoindex";
+	public static final String TAB_KEY    = "tabkey";
 
 	enum DetailMemoStatus
 	{
 		ADD_MEMO, EDIT_MEMO
 	}
-
 
 	EditText titleEdit;
 	EditText contentEdit;
@@ -129,6 +129,12 @@ public class DetailMemoActivity extends AppCompatActivity
 
 				switch( detailMemoStatus ) {
 					case ADD_MEMO:
+						if( MemoQueManager.Companion.getInstance().isMaxMemos() ) {
+							// 메모가 최대값이면 저장하지 못한다.
+							Toast.makeText( this, AppData.mainActivity.getString( R.string.detail_memo_menu_save_max_memos, MemoQueManager.Companion.getMAX_MEMO()), Toast.LENGTH_SHORT ).show();
+							break;
+						}
+
 						// 메모 추가 상태면 디비에 추가한다
 						MemoQueManager.Companion.getInstance().add( Adapterkey.MEMO, BSMemo );
 						break;

@@ -35,8 +35,10 @@ public class DBManager
 	{
 		DBContext dbContext = new DBContext( context );
 		database = dbContext.openOrCreateDatabase( "memoque", Context.MODE_PRIVATE, null );
-		if( database.getVersion() == 0 )
+		if( database.getVersion() == 0 ) {
 			database.execSQL( DB_CREATE_QUERY );
+			database.setVersion( 1 );
+		}
 		//		helper = new MemoQueDatabaseHelper( context );
 	}
 
@@ -91,8 +93,6 @@ public class DBManager
 		values.put( COLUMN_COMPLETENOTI, insertmemo.isCompleteNoti() ? "Y" : "N" );
 
 		database.insert( TABLE_NAME, null, values );
-
-		database.setVersion( 1 );
 	}
 
 	public void update( BSMemo updatememo )
@@ -126,5 +126,26 @@ public class DBManager
 			return;
 
 		database.delete( TABLE_NAME, COLUMN_INDEX + "=" + deletememo.getIndex(), null );
+	}
+
+	public BSMemo getMemo( int index )
+	{
+		if( database == null )
+			return null;
+
+		BSMemo memo = null;
+
+		cursor = database.rawQuery( "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_INDEX + "= '" + index + "'", null );
+		while( cursor.moveToNext() ) {
+			memo = new BSMemo();
+			memo.setTitle( cursor.getString( cursor.getColumnIndex( COLUMN_TITLE ) ) );
+			memo.setDate( cursor.getString( cursor.getColumnIndex( COLUMN_DATE ) ) );
+			memo.setContent( cursor.getString( cursor.getColumnIndex( COLUMN_CONTENT ) ) );
+			memo.setIndex( cursor.getInt( cursor.getColumnIndex( COLUMN_INDEX ) ) );
+			memo.setCompleteNoti( cursor.getString( cursor.getColumnIndex( COLUMN_COMPLETENOTI ) ).equals( "Y" ) );
+			memo.convertDateTime();
+		}
+
+		return memo;
 	}
 }

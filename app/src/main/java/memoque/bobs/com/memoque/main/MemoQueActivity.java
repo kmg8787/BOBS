@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,11 +27,10 @@ import com.google.android.gms.ads.MobileAds;
 import memoque.bobs.com.memoque.BuildConfig;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.appdata.AppData;
-import memoque.bobs.com.memoque.appdata.NotiService;
 import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
-import memoque.bobs.com.memoque.main.memo.DetailMemoActivity;
 import memoque.bobs.com.memoque.main.memo.MemoFragment;
 import memoque.bobs.com.memoque.main.search.SearchFragment;
+import memoque.bobs.com.memoque.notification.NotiService;
 
 public class MemoQueActivity extends AppCompatActivity
 {
@@ -128,6 +128,7 @@ public class MemoQueActivity extends AppCompatActivity
 	protected void onStart()
 	{
 		super.onStart();
+
 		stopService( new Intent( this, NotiService.class ) );
 	}
 
@@ -142,16 +143,6 @@ public class MemoQueActivity extends AppCompatActivity
 	public boolean onOptionsItemSelected( MenuItem item )
 	{
 		switch( item.getItemId() ) {
-			case R.id.memo_add:
-				// 메모 탭에서만 메모 추가가 가능하도록 한다
-				TabLayout tabLayout = findViewById( R.id.tabLayout );
-				if( tabLayout.getSelectedTabPosition() == 0 ) {
-					Intent intent = new Intent( this, DetailMemoActivity.class );
-					startActivity( intent );
-				} else
-					Toast.makeText( getApplicationContext(), getString( R.string.memo_add_button_warning ), Toast.LENGTH_SHORT ).show();
-				break;
-
 			case R.id.alram_on:
 				// 알람을 켠다
 				AppData.setEnableNotification( true );
@@ -178,13 +169,15 @@ public class MemoQueActivity extends AppCompatActivity
 	{
 		super.onDestroy();
 
-		if( AppData.isEnableNotification() ) {
-			// 현재 시간보다 이전인 메모는 알림을 보낸걸로 처리한다(종료시 바로 알림이 가는걸 방지)
-			MemoQueManager.Companion.getInstance().checkMemosDate();
+		// 현재 시간보다 이전인 메모는 알림을 보낸걸로 처리한다(종료시 바로 알림이 가는걸 방지)
+		MemoQueManager.Companion.getInstance().checkMemosDate();
 
+		if( AppData.isEnableNotification(this) && !MemoQueManager.Companion.getInstance().isMemosNotNoti() ) {
+			Log.e( "BOBS", "서비스 시작" );
 			// 알람이 켜져있으면 서비스를 실행한다
-			NotiService.serviceIntent = new Intent( this, NotiService.class );
-			startService( NotiService.serviceIntent );
+			startService( new Intent( this, NotiService.class ) );
+		} else {
+			android.os.Process.killProcess( android.os.Process.myPid() );
 		}
 	}
 

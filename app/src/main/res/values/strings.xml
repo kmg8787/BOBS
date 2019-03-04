@@ -37,6 +37,7 @@
 	<string name="detail_memo_menu_delete">DELETE</string>
 	<string name="detail_memo_menu_reset">RESET</string>
 	<string name="detail_memo_menu_exit">EXIT</string>
+	<string name="detail_memo_menu_save_max_memos">The current number of memos is $1%d, which is the maximum, and cannot be saved anymore. Exit the Add Memo window.</string>
 	<string name="detail_memo_menu_save_empty_title">Please enter a title.</string>
 	<string name="detail_memo_menu_save_empty_content">Please enter a contents.</string>
 	<string name="detail_memo_menu_remove_warning">Unable to delete memo.</string>

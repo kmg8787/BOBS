@@ -1,4 +1,4 @@
-package memoque.bobs.com.memoque.appdata;
+package memoque.bobs.com.memoque.notification;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,8 +10,6 @@ import android.support.annotation.Nullable;
 
 public class NotiService extends Service
 {
-	public static Intent serviceIntent = null;
-
 	@Nullable
 	@Override
 	public IBinder onBind( Intent intent )
@@ -23,21 +21,19 @@ public class NotiService extends Service
 	public int onStartCommand( final Intent intent, int flags, int startId )
 	{
 		// 노티리시버를 실행한다
-		startNotification( NotiService.this, new Intent( NotiService.this, NotiReceiver.class ) );
+		startNotification( NotiService.this, new Intent( NotiService.this, NotiCheckReceiver.class ), 0 );
 
 		return super.onStartCommand( intent, flags, startId );
 	}
 
-	public static void startNotification( Context context, Intent intent )
+	public static void startNotification( Context context, Intent intent, long delay )
 	{
 		// AlarmManager 호출
-		AlarmManager manager = (AlarmManager)context.getSystemService( Context.ALARM_SERVICE );
-		if( null == manager )
-			return;
+		AlarmManager alramManager = (AlarmManager)context.getSystemService( Context.ALARM_SERVICE );
 
 		PendingIntent pendingIntent = PendingIntent.getBroadcast( context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
 		// Receiver를 호출 한다.
-		manager.set( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent );
+		alramManager.setExact( AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + delay, pendingIntent );
 	}
 }

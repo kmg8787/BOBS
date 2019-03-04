@@ -24,7 +24,7 @@ public class DoubleBackPressed
 
 		// 첫 백키를 터치한지 2초 내에 백키를 터치하면 앱을 종료하고 아니면 토스트를 띄운다
 		if( intervalTime >= 0 && intervalTime <= FINISH_INTERVAL_TIME )
-			activity.finish();
+			activity.finishAffinity();
 		else {
 			backPressedTime = tempTime;
 			Toast.makeText( activity, activity.getResources().getString( R.string.main_backpressed ), Toast.LENGTH_SHORT ).show();
