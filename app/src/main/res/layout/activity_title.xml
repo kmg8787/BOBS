@@ -37,7 +37,7 @@
 		android:layout_marginBottom="109dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginStart="8dp"
-		android:layout_marginTop="280dp"
+		android:layout_marginTop="200dp"
 		android:gravity="center"
 		android:text="@string/title_touchthescreen"
 		android:textColor="#FFFFFF"

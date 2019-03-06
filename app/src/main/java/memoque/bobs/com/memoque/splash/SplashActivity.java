@@ -18,7 +18,6 @@ import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 import memoque.bobs.com.memoque.R;
-import memoque.bobs.com.memoque.appdata.AppData;
 import memoque.bobs.com.memoque.title.TitleActivity;
 
 public class SplashActivity extends Activity
@@ -101,8 +100,6 @@ public class SplashActivity extends Activity
 	{
 		// fabric 초기화
 		Fabric.with( SplashActivity.this, new Crashlytics() );
-
-		AppData.splashActivity = SplashActivity.this;
 
 		Handler handler = new Handler();
 		handler.postDelayed( new Runnable()

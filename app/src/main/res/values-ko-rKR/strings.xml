@@ -20,7 +20,7 @@
 	<string name="memo_alram_off_button">알람 끄기</string>
 	<string name="memo_help_button">도움말</string>
 	<string name="memo_help_dialog_title">꼭 읽어주세요!</string>
-	<string name="memo_help_dialog_content">1.메모 제목은 최대 20자, 메모 내용은 최대 1000자까지 가능합니다.\n\n2. 앱 절전 및 앱 최적화 실행 시 알람이 정상적으로 오지 않을 수 있습니다. 다시 앱 실행 후 종료해주세요.\n\n3. 메모리스트를 백업하려면 \"/memoque/databases/\" 의 memoque.db 파일을 백업하시면됩니다. 다른 스마트폰으로 옮길경우 해당 파일을 위 경로에 넣으면 됩니다.</string>
+	<string name="memo_help_dialog_content">1.메모는 최대 500개까지 저장 가능합니다.\n\n2.메모 제목은 최대 20자, 메모 내용은 최대 1000자까지 가능합니다.\n\n3. 앱 절전 및 앱 최적화 실행 시 알람이 정상적으로 오지 않을 수 있습니다. 다시 앱 실행 후 종료해주세요.\n\n4. 메모리스트를 백업하려면 \"/memoque/databases/\" 의 memoque.db 파일을 백업하시면됩니다. 다른 스마트폰으로 옮길경우 해당 파일을 위 경로에 넣으면 됩니다.</string>
 	<string name="memo_add_button_warning">메모 추가는 메모탭에서만 가능합니다.</string>
 	<string name="memo_alram_on_message">알람이 켜졌습니다.</string>
 	<string name="memo_alram_off_message">알람이 꺼졌습니다.</string>
@@ -28,7 +28,7 @@
 	<string name="search_button">검색</string>
 	<string name="search_calendar_button">캘린더</string>
 	<string name="search_empty_text">검색할 텍스트를 입력해주세요.</string>
-	<string name="search_empty_memo">저장된 메모가 없어요.</string>
+	<string name="search_disable_memo">일치하는 메모가 없어요.</string>
 
 	<string name="detail_memo_title_add">메모 추가</string>
 	<string name="detail_memo_title_edit">메모 수정</string>

@@ -56,10 +56,6 @@ class MemoQueManager private constructor() {
         databaseManager?.update(BSMemo)
     }
 
-    fun update(memo: BSMemo) {
-        databaseManager?.update(memo)
-    }
-
     fun remove(key: MemoQueManager.Adapterkey, memoindex: Int): Boolean {
         var removeMemo = BSMemo()
 
@@ -92,10 +88,18 @@ class MemoQueManager private constructor() {
             return false
         else {
             listSort()
-            adapterListeners[key]?.searchMemos(memos.filter { it.title.contains(filterText) || it.content.contains(filterText) || it.date.contains(filterText) })
+            val flitermemos = filterMemos(filterText)
+            if (flitermemos.isEmpty())
+                return false
+            else
+                adapterListeners[key]?.searchMemos(flitermemos, filterText)
         }
 
         return true
+    }
+
+    fun filterMemos(filterText: String): List<BSMemo> {
+        return memos.filter { it.title.contains(filterText) || it.content.contains(filterText) || it.date.contains(filterText) }
     }
 
     fun initAdapterToTab(key: Adapterkey) {
@@ -183,7 +187,7 @@ class MemoQueManager private constructor() {
         for (i in 0 until dateComparatorList.size) {
             val memo = dateComparatorList[i]
 
-           val minMilliseconds = memo.dateTime!!.millis - now.millis
+            val minMilliseconds = memo.dateTime!!.millis - now.millis
 
             if (minMilliseconds < 0 || memo.isCompleteNoti)
                 continue
@@ -202,9 +206,9 @@ class MemoQueManager private constructor() {
         val o1Millisecond = o1.dateTime!!.millis - now.millis
         val o2Millisecond = o2.dateTime!!.millis - now.millis
 
-        if(o1Millisecond < o2Millisecond)
+        if (o1Millisecond < o2Millisecond)
             return@Comparator -1
-        else if(o1Millisecond > o2Millisecond)
+        else if (o1Millisecond > o2Millisecond)
             return@Comparator 1
         return@Comparator 0
     }

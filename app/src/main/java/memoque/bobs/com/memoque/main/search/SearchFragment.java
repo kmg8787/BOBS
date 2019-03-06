@@ -55,7 +55,7 @@ public class SearchFragment extends Fragment
 					Toast.makeText( getContext(), R.string.search_empty_text, Toast.LENGTH_SHORT ).show();
 				else {
 					if( !MemoQueManager.Companion.getInstance().memosSearch( Adapterkey.SEARCH, searchText ) )
-						Toast.makeText( getContext(), R.string.search_empty_memo, Toast.LENGTH_SHORT ).show();
+						Toast.makeText( getContext(), R.string.search_disable_memo, Toast.LENGTH_SHORT ).show();
 				}
 			}
 		} );
@@ -79,7 +79,7 @@ public class SearchFragment extends Fragment
 						searchEdit.setText( searchDateText );
 
 						if( !MemoQueManager.Companion.getInstance().memosSearch( Adapterkey.SEARCH, searchDateText ) )
-							Toast.makeText( getContext(), R.string.search_empty_memo, Toast.LENGTH_SHORT ).show();
+							Toast.makeText( getContext(), R.string.search_disable_memo, Toast.LENGTH_SHORT ).show();
 					}
 				}, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth() );
 

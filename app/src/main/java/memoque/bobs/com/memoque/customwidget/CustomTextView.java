@@ -38,7 +38,6 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView
 
 	public void init( AttributeSet attrs )
 	{
-
 		if( attrs != null ) {
 			@SuppressLint("Recycle") TypedArray a = getContext().obtainStyledAttributes( attrs, R.styleable.CustomTextView );
 
@@ -47,6 +46,7 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView
 				int strokeColor = a.getColor( R.styleable.CustomTextView_strokeColor, 0xff000000 );
 				float strokeMiter = a.getDimensionPixelSize( R.styleable.CustomTextView_strokeMiter, 10 );
 				Paint.Join strokeJoin = null;
+
 				switch( a.getInt( R.styleable.CustomTextView_strokeJoinStyle, 0 ) ) {
 					case ( 0 ):
 						strokeJoin = Paint.Join.MITER;
@@ -58,6 +58,7 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView
 						strokeJoin = Paint.Join.ROUND;
 						break;
 				}
+
 				this.setStroke( strokeWidth, strokeColor, strokeJoin, strokeMiter );
 			}
 		}

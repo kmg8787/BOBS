@@ -57,7 +57,6 @@ open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
     override fun getItemCount(): Int {
         // 리사이클러뷰 카드뷰 개수 리턴
         return if (null == BSMemoList) 0 else BSMemoList!!.size
-
     }
 
     class ViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
@@ -68,7 +67,7 @@ open class MemoQueAdapter : RecyclerView.Adapter<ViewHolder>(), IAdapter {
         notifyDataSetChanged()
     }
 
-    override fun searchMemos(BSMemos: List<BSMemo>?) {
+    override fun searchMemos(BSMemos: List<BSMemo>?, searchtext: String) {
         // 검색탭 메모 리스트 갱신
         BSMemoList = BSMemos
         notifyDataSetChanged()

@@ -1,5 +1,6 @@
 package memoque.bobs.com.memoque.appdata;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,7 +11,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.main.memo.BSMemo;
@@ -22,16 +22,14 @@ public class AppData
 	public static final String NOTIFICATION_ENABLED = "notification_enabled";
 	public static final String FIRST_HELP_DIALOG = "first_help_dialog";
 
-	public static Context mainActivity   = null;
-	public static Context splashActivity = null;
+	@SuppressLint("StaticFieldLeak")
+	public static Context mainActivity = null;
 
 	public static void sendNotification( BSMemo memo, Context context )
 	{
 		// 액티비티가 널이거나 알림이 꺼져있으면 보내지 않는다
-		if( !isEnableNotification(context) || memo == null) {
-			Log.e( "BOBS", "노티 발송 실패" );
+		if( !isEnableNotification(context) || memo == null)
 			return;
-		}
 
 		NotificationCompat.Builder builder = null;
 		NotificationManager manager = (NotificationManager)context.getSystemService( Context.NOTIFICATION_SERVICE );
@@ -70,8 +68,6 @@ public class AppData
 
 		// 해당 메모는 알람을 보낸것으로 처리한다
 		memo.setCompleteNoti( true );
-
-		Log.e( "BOBS", "노티 발송 완료");
 	}
 
 	public static boolean isEnableNotification(Context context)
@@ -113,7 +109,7 @@ public class AppData
 		if( preferences == null )
 			return true;
 
-		// 알람 여부를 가져온다
+		// 첫 설치 후 실행이면 도움말창을 연다
 		return preferences.getBoolean( FIRST_HELP_DIALOG, true );
 	}
 
@@ -126,7 +122,7 @@ public class AppData
 		if( preferences == null )
 			return;
 
-		// 알람 여부를 세팅한다
+		// 첫 실행시 도움말창 여부를 세팅한다
 		Editor editor = preferences.edit();
 		if( editor != null ) {
 			editor.putBoolean( FIRST_HELP_DIALOG, value );

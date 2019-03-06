@@ -27,8 +27,8 @@ public class DBManager
 
 	public static final String DB_CREATE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_CONTENT + " TEXT, " + COLUMN_INDEX + " INTEGER, " + COLUMN_COMPLETENOTI + " TEXT)";
 
-	private SQLiteDatabase        database = null;
-	private MemoQueDatabaseHelper helper;
+	private SQLiteDatabase        database;
+//	private MemoQueDatabaseHelper helper;
 	private Cursor                cursor   = null;
 
 	public DBManager( Context context )

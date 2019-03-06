@@ -19,7 +19,7 @@
 	<string name="memo_alram_off_button">ALRAM OFF</string>
 	<string name="memo_help_button">HELP</string>
 	<string name="memo_help_dialog_title">Please read it!</string>
-	<string name="memo_help_dialog_content">1.Memo titles can be up to 20 characters long and memos can be up to 1000 characters long.\n\n2. When running app sleep and app optimization, the alarm might not turn on normally. Please exit after running the app again.\n\n3. To back up the memoList, simply back up the memoque.db file on \"/memoque/databases/\". If you want to move to another smartphone, simply put the file in the path above.</string>
+	<string name="memo_help_dialog_content">1.Up to 500 memos can be stored.\n\n2.Memo titles can be up to 20 characters long and memos can be up to 1000 characters long.\n\n3. When running app sleep and app optimization, the alarm might not turn on normally. Please exit after running the app again.\n\n4. To back up the memoList, simply back up the memoque.db file on \"/memoque/databases/\". If you want to move to another smartphone, simply put the file in the path above.</string>
 	<string name="memo_add_button_warning">Adding memo is only possible from the Memo tab.</string>
 	<string name="memo_alram_on_message">The alarm is on.</string>
 	<string name="memo_alram_off_message">The alarm is off.</string>
@@ -27,7 +27,7 @@
 	<string name="search_button">Search</string>
 	<string name="search_calendar_button">Calendar Button</string>
 	<string name="search_empty_text">Please enter the text you want to search for.</string>
-	<string name="search_empty_memo">There are no saved memos.</string>
+	<string name="search_disable_memo">There\'s no matching memos.</string>
 
 	<string name="detail_memo_title_add">ADD MEMO</string>
 	<string name="detail_memo_title_edit">EDIT MEMO</string>
