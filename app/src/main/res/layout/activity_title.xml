@@ -5,8 +5,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".title.TitleActivity"
-	android:background="@drawable/title">
+	android:background="@drawable/title"
+	tools:context=".title.TitleActivity">
 
 	<memoque.bobs.com.memoque.customwidget.CustomTextView
 		android:id="@+id/text_title_title"
