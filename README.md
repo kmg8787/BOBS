@@ -15,7 +15,7 @@
 3. 데이터 관련 클래스는 코틀린, 나머지는 자바이다.
 4. joda time, fabric, admob 사용
 
-#license
+# License
 
 MIT License
 
