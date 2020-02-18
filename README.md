@@ -15,6 +15,14 @@
 3. 데이터 관련 클래스는 코틀린, 나머지는 자바이다.
 4. joda time, fabric, admob 사용
 
+# 스크린샷
+
+<div>
+  <img width="200" src="https://user-images.githubusercontent.com/8046850/74748547-0a5de680-52ac-11ea-8d8b-e2877468de36.jpg">
+  <img width="200" src="https://user-images.githubusercontent.com/8046850/74748544-092cb980-52ac-11ea-8d27-e581e4d1c0a3.png">
+  <img width="200" src="https://user-images.githubusercontent.com/8046850/74748546-0a5de680-52ac-11ea-905a-78321b235e52.png">
+<div>
+
 # License
 
 MIT License
