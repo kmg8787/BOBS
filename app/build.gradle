@@ -17,6 +17,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def admobAppId = properties.getProperty('ADMOB_APP_ID')
+def admobId = properties.getProperty('ADMOB_ID')
+def admobDebugId = properties.getProperty('ADMOB_DEBUG_ID')
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -28,14 +34,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-        buildConfigField "String", 'ADMOB_APP_ID', '"ca-app-pub-9969081594277709~7135106377"'
-        buildConfigField "String", 'ADMOB_ID', '"ca-app-pub-9969081594277709/5219389471"'
+        buildConfigField "String", 'ADMOB_APP_ID', admobAppId
+        buildConfigField "String", 'ADMOB_ID', admobId
 
     }
     buildTypes {
         debug {
             debuggable true
-            buildConfigField "String", 'ADMOB_ID', '"ca-app-pub-3940256099942544/6300978111"'
+            buildConfigField "String", 'ADMOB_ID', admobDebugId
         }
         release {
             minifyEnabled false
