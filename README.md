@@ -1,5 +1,7 @@
 # MEMOQUE
 
+[![HitCount](http://hits.dwyl.com/waterbobs/MEMOQUE.svg)](http://hits.dwyl.com/waterbobs/MEMOQUE)
+
 - 첫 개인 프로젝트
 - Google Play Store : https://play.google.com/store/apps/details?id=memoque.bobs.com.memoque.free
 
