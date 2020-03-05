@@ -1,1 +1,1 @@
-*.java linguist-vendored
+app/*.java linguist-vendored
