@@ -1,0 +1,2 @@
+app/*.kt linguist-vendored
+app/*.java linguist-vendored
