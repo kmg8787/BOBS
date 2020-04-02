@@ -4,6 +4,7 @@
 
 - 첫 개인 프로젝트
 - Google Play Store : https://play.google.com/store/apps/details?id=memoque.bobs.com.memoque.free
+- 개발자 경력 : https://github.com/waterbobs/ME
 
 # 특징
 
