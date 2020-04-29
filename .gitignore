@@ -223,3 +223,5 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/kotlin,android,androidstudio
 
+google-services.json
+
