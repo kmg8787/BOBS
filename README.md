@@ -1,18 +1,15 @@
 # MEMOQUE
 
+[![HitCount](http://hits.dwyl.com/waterbobs/MEMOQUE.svg)](http://hits.dwyl.com/waterbobs/MEMOQUE)
+
 - 첫 개인 프로젝트
 - Google Play Store : https://play.google.com/store/apps/details?id=memoque.bobs.com.memoque.free
+- 개발자 경력 : https://github.com/waterbobs/ME
 
 # 특징
 
 1. 심플한 메모장
 2. 메모별 날짜를 설정하여 해당 메모를 **알람**받을 수 있는 기능을 제공
-
-# 사용기술
-
-1. 자바, 코틀린 혼합.
-2. 데이터 관련 클래스는 코틀린, 나머지는 자바이다.
-3. joda time, fabric, admob 사용
 
 # 스크린샷
 
