@@ -4,10 +4,6 @@ package memoque.bobs.com.memoque.main.search;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +19,10 @@ import org.joda.time.DateTime;
 
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.main.MemoQueManager;
 import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;

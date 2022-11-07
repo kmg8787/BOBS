@@ -1,17 +1,17 @@
 package memoque.bobs.com.memoque.main;
 
-import android.app.Activity;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import memoque.bobs.com.memoque.R;
 
 public class DoubleBackPressed
 {
 	private final long FINISH_INTERVAL_TIME = 2000;
 	private       long backPressedTime      = 0;
-	private Activity activity;
+	private AppCompatActivity activity;
 
-	public DoubleBackPressed(Activity activity)
+	public DoubleBackPressed( AppCompatActivity activity)
 	{
 		this.activity = activity;
 	}

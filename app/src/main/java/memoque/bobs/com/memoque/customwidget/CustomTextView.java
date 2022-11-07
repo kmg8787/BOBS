@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import memoque.bobs.com.memoque.R;
 
 // 외곽선 표시용 텍스트뷰
-public class CustomTextView extends android.support.v7.widget.AppCompatTextView
+public class CustomTextView extends androidx.appcompat.widget.AppCompatTextView
 {
 	private float      strokeWidth;
 	private Integer    strokeColor;

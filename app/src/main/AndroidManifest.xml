@@ -27,13 +27,13 @@
 		</activity>
 		<activity
 			android:name=".main.MemoQueActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/Theme.AppCompat.NoActionBar"
+			android:screenOrientation="fullSensor"
 			android:excludeFromRecents="true">
 		</activity>
 		<activity
 			android:name=".splash.SplashActivity"
-			android:screenOrientation="portrait"
+			android:screenOrientation="fullSensor"
+			android:exported="true"
 			android:theme="@style/SplashTheme"
 			android:excludeFromRecents="true">
 			<intent-filter>
@@ -44,8 +44,8 @@
 		</activity>
 		<activity
 			android:name=".title.TitleActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+			android:exported="true"
+			android:screenOrientation="fullSensor"
 			android:excludeFromRecents="true">
 		</activity>
 		<activity

@@ -1,26 +1,23 @@
 package memoque.bobs.com.memoque.splash;
 
 import android.Manifest.permission;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.Window;
 
-import com.crashlytics.android.Crashlytics;
-
-import io.fabric.sdk.android.Fabric;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.title.TitleActivity;
 
-public class SplashActivity extends Activity
+public class SplashActivity extends AppCompatActivity
 {
 	private static final int PERMISSIONS_REQUEST_CODE = 100;
 
@@ -33,7 +30,6 @@ public class SplashActivity extends Activity
 		requestWindowFeature( Window.FEATURE_NO_TITLE );
 		setContentView( R.layout.activity_splash );
 
-//		startSplash();
 		checkPermissions();
 	}
 
@@ -49,14 +45,7 @@ public class SplashActivity extends Activity
 				new AlertDialog.Builder( this ).setTitle( R.string.permission_request_title )
 																  .setMessage( R.string.permission_request_content )
 																  .setCancelable( false )
-																  .setPositiveButton( R.string.permission_request_error_positive, new OnClickListener()
-																  {
-																	  @Override
-																	  public void onClick( DialogInterface dialog, int which )
-																	  {
-																		  ActivityCompat.requestPermissions( SplashActivity.this, requestPermissions, PERMISSIONS_REQUEST_CODE );
-																	  }
-																  } )
+																  .setPositiveButton( R.string.permission_request_error_positive, ( dialog, which ) -> ActivityCompat.requestPermissions( SplashActivity.this, requestPermissions, PERMISSIONS_REQUEST_CODE ) )
 																  .show();
 			} else
 				ActivityCompat.requestPermissions( this, requestPermissions, PERMISSIONS_REQUEST_CODE );
@@ -98,9 +87,6 @@ public class SplashActivity extends Activity
 
 	private void startSplash()
 	{
-		// fabric 초기화
-		Fabric.with( SplashActivity.this, new Crashlytics() );
-
 		Handler handler = new Handler();
 		handler.postDelayed( new Runnable()
 		{

@@ -5,16 +5,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.OnTabSelectedListener;
-import android.support.design.widget.TabLayout.Tab;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,8 +13,16 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.FirebaseApp;
 
-import memoque.bobs.com.memoque.BuildConfig;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import memoque.bobs.com.memoque.R;
 import memoque.bobs.com.memoque.appdata.AppData;
 import memoque.bobs.com.memoque.main.MemoQueManager.Adapterkey;
@@ -35,19 +33,22 @@ import memoque.bobs.com.memoque.notification.NotiService;
 public class MemoQueActivity extends AppCompatActivity
 {
 	private DoubleBackPressed doubleBackPressed = null;
+	private FirebaseApp firebaseApp = null;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
 		// free 버전이면 배너광고가 있는 레이아웃을 세팅한다
-		setContentView( BuildConfig.IS_FREE_VERSION ? R.layout.activity_main : R.layout.activity_main_paid );
+		setContentView( R.layout.activity_main);
 
 		// 백키 더블 처리 클래스 생성
 		doubleBackPressed = new DoubleBackPressed( this );
 
 		// 구글 애드몹 초기화
-		MobileAds.initialize( this, BuildConfig.ADMOB_APP_ID );
+		MobileAds.initialize( this );
+
+		firebaseApp = FirebaseApp.getInstance();
 
 		AppData.mainActivity = this;
 		MemoQueManager.Companion.getInstance().setDatabase( this );
@@ -90,34 +91,31 @@ public class MemoQueActivity extends AppCompatActivity
 		// 탭에 뷰 페이져 연결
 		TabLayout tabLayout = findViewById( R.id.tabLayout );
 		tabLayout.setupWithViewPager( viewPager );
-		tabLayout.addOnTabSelectedListener( new OnTabSelectedListener()
+		tabLayout.addOnTabSelectedListener( new TabLayout.OnTabSelectedListener()
 		{
 			@Override
-			public void onTabSelected( Tab tab )
+			public void onTabSelected( TabLayout.Tab tab )
 			{
 				if( tab.getPosition() == 1 )
-					MemoQueManager.Companion.getInstance().initAdapterToTab( Adapterkey.SEARCH );
+				MemoQueManager.Companion.getInstance().initAdapterToTab( Adapterkey.SEARCH );
 			}
 
 			@Override
-			public void onTabUnselected( Tab tab )
+			public void onTabUnselected( TabLayout.Tab tab )
 			{
 
 			}
 
 			@Override
-			public void onTabReselected( Tab tab )
+			public void onTabReselected( TabLayout.Tab tab )
 			{
 
 			}
 		} );
 
-		if( BuildConfig.IS_FREE_VERSION ) {
-			// free 버전이면 배너광고를 로드한다
 			AdView adView = findViewById( R.id.myAdView );
 			AdRequest adRequest = new AdRequest.Builder().build();
 			adView.loadAd( adRequest );
-		}
 
 		if( AppData.isEnableFirstHelpDialog() ) {
 			openHelpDialog();
