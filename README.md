@@ -3,7 +3,7 @@
 [![HitCount](http://hits.dwyl.com/waterbobs/MEMOQUE.svg)](http://hits.dwyl.com/waterbobs/MEMOQUE)
 
 - 첫 개인 프로젝트
-- 개발자 경력 : https://github.com/waterbobs/ME
+- 개발자 경력 : https://github.com/spbobs/ME
 
 # 특징
 
@@ -22,7 +22,7 @@
 
 MIT License
 
-Copyright (c) 2019 BOBS
+Copyright (c) 2022 BOBS
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
